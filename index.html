@@ -329,13 +329,13 @@
     }
     .opp-cap-cards .hw-card.opp-mini {
       width: 26px;
-      height: 39px;
+      height: 43px;
       border-radius: 3px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.55);
     }
     .two-opps .opp-cap-cards .hw-card.opp-mini {
       width: 21px;
-      height: 31px;
+      height: 34px;
     }
     .opp-cap-cards .hw-card.opp-mini + .hw-card.opp-mini {
       margin-left: -5px;
@@ -426,7 +426,7 @@
     }
     .floor-group .hw-card {
       width: 38px;
-      height: 56px;
+      height: 62px;
     }
     .floor-group .hw-card + .hw-card {
       margin-left: -14px;
@@ -513,7 +513,7 @@
     .cap-cards-strip {
       display: flex;
       align-items: center;
-      height: 28px;
+      height: 34px;
       overflow: hidden;
     }
     .cap-cards-strip .hw-card.mini + .hw-card.mini {
@@ -541,7 +541,7 @@
     /* Hwatu Card Component */
     .hw-card {
       width: 42px;
-      height: 63px;
+      height: 69px;
       border-radius: 5px;
       overflow: hidden;
       box-shadow: 0 2px 5px rgba(0,0,0,0.45);
@@ -557,14 +557,14 @@
     }
     .hw-card.mini {
       width: 20px;
-      height: 28px;
+      height: 33px;
       border-radius: 3px;
       box-shadow: 0 1px 2px rgba(0,0,0,0.4);
     }
     .hw-card.hand-card {
       width: 100%;
       height: auto;
-      aspect-ratio: 2 / 3;
+      aspect-ratio: 512 / 839;
       cursor: pointer;
       touch-action: none;
     }
@@ -728,7 +728,7 @@
       gap: 4px;
       margin-top: 4px;
     }
-    .opp-detail-cards .hw-card { width: 32px; height: 48px; }
+    .opp-detail-cards .hw-card { width: 32px; height: 52px; }
 
     /* Modals */
     .modal-backdrop {
@@ -780,7 +780,7 @@
       border: 1.5px solid var(--border);
       border-radius: 12px;
     }
-    .modal-card-btn .hw-card { width: 64px; height: 96px; }
+    .modal-card-btn .hw-card { width: 64px; height: 105px; }
     .modal-btns {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1050,7 +1050,7 @@
    * ========================================================================= */
   const Store = (() => {
     const PREFIX = 'gostop.';
-    const SCHEMA_VERSION = 2;
+    const SCHEMA_VERSION = 3;
 
     const CAREER_STAGES = Object.freeze([
       Object.freeze({ id: 0, name: '동네 판', stake: 100, minCoins: 0, chars: ['gwangryeol', 'jungmadam'], desc: '점당 100원 · 누구나 입장' }),
@@ -1061,7 +1061,8 @@
     ]);
 
     const CARD_THEMES = Object.freeze([
-      Object.freeze({ id: 'classic', name: '전통 붉은 패', cost: 0, reqAch: 0, desc: '클래식 홍단 테두리와 붉은 뒷면' }),
+      Object.freeze({ id: 'photo', name: '실사 화투패', cost: 0, reqAch: 0, desc: '위키미디어 공용 화투패 (Mliu92, CC BY-SA 4.0)' }),
+      Object.freeze({ id: 'classic', name: '전통 붉은 패', cost: 0, reqAch: 0, desc: '직접 그린 클래식 화투 일러스트' }),
       Object.freeze({ id: 'jade', name: '청자 비취 패', cost: 30000, reqAch: 3, desc: '고려청자 비취빛 테두리와 문양' }),
       Object.freeze({ id: 'royal', name: '금박 흑단 패', cost: 100000, reqAch: 8, desc: '흑단 먹선과 황금 테두리 프리미엄' })
     ]);
@@ -1240,15 +1241,26 @@
       }
       if (!get('cosmetics', null)) {
         set('cosmetics', {
-          cardTheme: 'classic',
+          cardTheme: 'photo',
           tableTheme: 'felt_green',
-          unlockedCards: ['classic'],
+          unlockedCards: ['photo', 'classic'],
           unlockedTables: ['felt_green']
         });
       }
       if (!get('attendance', null)) set('attendance', { lastDate: null, streak: 0 });
       if (!get('relief', null)) set('relief', { lastDate: null });
       if (!get('achievements', null)) set('achievements', { claimed: {} });
+
+      if (ver < 3) {
+        // v3: 실사 화투패(위키미디어 공용) 테마 추가 → 기존 기본값 사용자는 자동 전환
+        const cos = get('cosmetics', null);
+        if (cos && typeof cos === 'object') {
+          if (!Array.isArray(cos.unlockedCards)) cos.unlockedCards = ['classic'];
+          if (cos.unlockedCards.indexOf('photo') < 0) cos.unlockedCards.push('photo');
+          if (!cos.cardTheme || cos.cardTheme === 'classic') cos.cardTheme = 'photo';
+          set('cosmetics', cos);
+        }
+      }
 
       if (ver < SCHEMA_VERSION) {
         set('schemaVersion', SCHEMA_VERSION);
@@ -1333,9 +1345,9 @@
 
     function getCosmetics() {
       return Object.assign({
-        cardTheme: 'classic',
+        cardTheme: 'photo',
         tableTheme: 'felt_green',
-        unlockedCards: ['classic'],
+        unlockedCards: ['photo', 'classic'],
         unlockedTables: ['felt_green']
       }, get('cosmetics', {}) || {});
     }
@@ -4612,7 +4624,7 @@
 
     function getActiveTheme() {
       try {
-        return Store.getCosmetics().cardTheme || 'classic';
+        return Store.getCosmetics().cardTheme || 'photo';
       } catch (_) {
         return 'classic';
       }
@@ -4644,17 +4656,22 @@
           '</svg>';
       } else {
         const bright = card.category === 'bright';
-        svg = '<svg viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg">' +
-          '<rect x="0" y="0" width="64" height="96" fill="' + t.face + '"/>' +
-          grain(t, card.month) +
-          motif(card) +
-          ribbon(card) +
-          piMarks(card) +
+        // 실사(원본) 패 모드: 카드 이미지를 전체에 채우고, 그 아래에 벡터 패를 깔아
+        // 이미지 로딩 실패 시에도 패가 보이도록 한다.
+        const photo = (theme === 'photo');
+        const vbH = photo ? 105 : 96;
+        const inner = grain(t, card.month) + motif(card) + ribbon(card) + piMarks(card) +
           '<rect x="3" y="3" width="58" height="90" rx="2.4" fill="none" stroke="' + t.edge + '" stroke-width="0.9"/>' +
           '<rect x="1" y="1" width="62" height="94" rx="4" fill="none" stroke="' + (bright ? t.brightFrame : t.frame) +
           '" stroke-width="' + (bright ? 2 : 1.1) + '" stroke-opacity="' + (bright ? 0.9 : 0.38) + '"/>' +
           monthTab(card.month) +
-          badge(card) +
+          badge(card);
+        svg = '<svg viewBox="0 0 64 ' + vbH + '" xmlns="http://www.w3.org/2000/svg">' +
+          '<rect x="0" y="0" width="64" height="' + vbH + '" fill="' + t.face + '"/>' +
+          '<g transform="' + (photo ? 'scale(1 1.09375)' : 'none') + '">' + inner + '</g>' +
+          (photo
+            ? '<image href="./cards/' + card.id + '.svg" x="0" y="0" width="64" height="105" preserveAspectRatio="none"/>'
+            : '') +
           '</svg>';
       }
       cache[key] = svg;
@@ -6099,10 +6116,10 @@
       catch (e) { results.push({ id, name, pass: false, error: e && e.message ? e.message : String(e) }); }
     }
 
-    test('ST01', '업적 20개 이상(24개) 및 커리어 5단계/테마 3종 정의 확인', () => {
+    test('ST01', '업적 20개 이상(24개) 및 커리어 5단계/테마 4종 정의 확인', () => {
       assert(Store.ACHIEVEMENTS.length >= 20, '업적 20개 이상');
       assertEq(Store.CAREER_STAGES.length, 5, '커리어 5단계');
-      assertEq(Store.CARD_THEMES.length, 3, '화투 테마 3종');
+      assertEq(Store.CARD_THEMES.length, 4, '화투 테마 4종');
       assertEq(Store.TABLE_THEMES.length, 3, '바닥 테마 3종');
     });
 
@@ -6119,7 +6136,7 @@
 
     test('ST03', '스키마 버전 및 마이그레이션 함수 검증', () => {
       const ver = Store.migrate();
-      assertEq(ver, Store.SCHEMA_VERSION, '스키마 버전 2');
+      assertEq(ver, Store.SCHEMA_VERSION, '스키마 버전 3');
       const st = Store.getStats();
       assert(st.combos && typeof st.combos.godori === 'number', '족보 통계 필드 존재');
     });
@@ -7250,9 +7267,9 @@
       const achCount = Store.getUnlockedAchievementCount();
 
       let html = '<h3>꾸미기 테마</h3>';
-      html += '<div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:6px;">화투 카드 테마 (3종)</div>';
+      html += '<div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:6px;">화투 카드 테마 (4종)</div>';
       for (const th of Store.CARD_THEMES) {
-        const owned = cos.unlockedCards.includes(th.id);
+        const owned = cos.unlockedCards.includes(th.id) || (th.cost === 0 && th.reqAch === 0);
         const equipped = cos.cardTheme === th.id;
         const canUnlockAch = th.reqAch > 0 && achCount >= th.reqAch;
         const canBuy = wallet >= th.cost;
@@ -7266,6 +7283,11 @@
           '<div style="font-size:11px;color:var(--muted);">' + th.desc + '</div>' +
         '</div>';
       }
+
+      html += '<div style="font-size:10.5px;color:var(--muted);margin:2px 0 10px;line-height:1.5;">' +
+        '실사 패 이미지: <b>Mliu92</b>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener" style="color:var(--accent);">CC BY-SA 4.0</a> · ' +
+        '<a href="https://commons.wikimedia.org/wiki/Category:SVG_Hwatu_(with_Japanese-style_artwork)" target="_blank" rel="noopener" style="color:var(--accent);">Wikimedia Commons</a> (원본 그대로 사용)' +
+        '</div>';
 
       html += '<div style="font-size:12px;color:var(--accent);font-weight:700;margin:10px 0 6px;">바닥 테이블 테마 (3종)</div>';
       for (const tb of Store.TABLE_THEMES) {

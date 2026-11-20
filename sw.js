@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'gostop-offline-v5';
+﻿const CACHE_NAME = 'gostop-offline-v6';
 const ASSETS = [
   './',
   './index.html',
