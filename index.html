@@ -997,11 +997,11 @@
     const SCHEMA_VERSION = 2;
 
     const CAREER_STAGES = Object.freeze([
-      Object.freeze({ id: 0, name: '동네 판', stake: 100, minCoins: 0, chars: ['cheolsu', 'younghee'], desc: '점당 100원 · 누구나 입장' }),
-      Object.freeze({ id: 1, name: '시장 판', stake: 500, minCoins: 5000, chars: ['younghee', 'doryeong'], desc: '점당 500원 · 최소 5,000원' }),
-      Object.freeze({ id: 2, name: '장터 큰판', stake: 1000, minCoins: 20000, chars: ['doryeong', 'gildong'], desc: '점당 1,000원 · 최소 20,000원' }),
-      Object.freeze({ id: 3, name: '하우스 판', stake: 3000, minCoins: 80000, chars: ['gildong', 'okran'], desc: '점당 3,000원 · 최소 80,000원' }),
-      Object.freeze({ id: 4, name: '큰손 판', stake: 10000, minCoins: 300000, chars: ['okran', 'gildong'], desc: '점당 10,000원 · 최소 300,000원' })
+      Object.freeze({ id: 0, name: '동네 판', stake: 100, minCoins: 0, chars: ['gwangryeol', 'jungmadam'], desc: '점당 100원 · 누구나 입장' }),
+      Object.freeze({ id: 1, name: '시장 판', stake: 500, minCoins: 5000, chars: ['jungmadam', 'jjakkwi'], desc: '점당 500원 · 최소 5,000원' }),
+      Object.freeze({ id: 2, name: '장터 큰판', stake: 1000, minCoins: 20000, chars: ['jjakkwi', 'agwi'], desc: '점당 1,000원 · 최소 20,000원' }),
+      Object.freeze({ id: 3, name: '하우스 판', stake: 3000, minCoins: 80000, chars: ['agwi', 'pyeonggyeongjang'], desc: '점당 3,000원 · 최소 80,000원' }),
+      Object.freeze({ id: 4, name: '큰손 판', stake: 10000, minCoins: 300000, chars: ['pyeonggyeongjang', 'agwi'], desc: '점당 10,000원 · 최소 300,000원' })
     ]);
 
     const CARD_THEMES = Object.freeze([
@@ -3055,13 +3055,13 @@
   const AI = (() => {
     const CHARACTERS = Object.freeze([
       Object.freeze({
-        id: 'cheolsu',
-        name: '김철수',
-        title: '동네 고스톱 입문자',
-        style: '고 중독형',
+        id: 'gwangryeol',
+        name: '고광렬',
+        title: '판 위의 큰 어른',
+        style: '담담한 진검형',
         difficulty: 'easy',
-        avatar: '😄',
-        color: '#38bdf8',
+        avatar: '🎩',
+        color: '#d9b45c',
         profile: Object.freeze({
           difficulty: 'easy',
           noise: 95,
@@ -3073,24 +3073,24 @@
           shakeBias: 0.5
         }),
         lines: Object.freeze({
-          start: ['자, 오늘도 유쾌하게 한 판 칩시다!', '규칙은 대충 아는데 일단 질러볼게요!', '패가 잘 붙기를!'],
-          capture: ['오, 이거 내 거다!', '슬슬 감이 오는데요?', '한 장 쏙 가져갑니다!'],
-          ppeok: ['어라? 뻑이네? 하하 괜찮아!', '바닥에 선물을 놓고 갑니다~', '설마 내가 뻑을 낼 줄이야!'],
-          go: ['고! 인생은 직진이지!', '무조건 고! 멈출 수 없어요!', '여기서 스톱하면 섭섭하죠! 고!'],
-          stop: ['음... 이번엔 아쉽지만 스톱!', '오늘은 여기까지만 먹을게요!', '이 정도면 만족! 스톱!'],
-          win: ['와! 내가 이겼다! 실력이 늘었나?', '행운의 여신이 내 편이네!', '한 판 더 붙으시죠!'],
-          lose: ['에이, 패가 안 풀렸을 뿐이야!', '고박만 안 당했어도... 크흑!', '다음 판엔 복수할 겁니다!'],
-          pibak: ['헉, 피박이라니! 피 좀 나눠줘요!', '피가 모자라... 너무해요!', '피박까지 쓰다니 뼈아프네요!']
+          start: ['자, 앉아. 오늘은 네가 먼저 패를 잡아라.', '판은 천천히 읽는 거다. 서두르지 마라.', '돈보다 먼저 사람을 보는 눈을 길러라.'],
+          capture: ['음, 이 패는 내가 가져야겠군.', '한 장씩, 차분하게 쌓아 가는 거야.', '좋은 패는 때를 기다려 주는 법이지.'],
+          ppeok: ['허, 내가 손을 무겁게 놀렸나.', '뻑 하나로 판이 끝나진 않네.', '이런 실수는 오늘 한 번이면 충분하지.'],
+          go: ['아직 끝낼 때가 아니야. 고.', '흐름을 봐라. 아직 내 쪽이다. 고.', '한 번 더 가 보겠네. 고.'],
+          stop: ['여기서 접는 것도 실력이지. 스톱.', '욕심이 판을 망친다. 스톱일세.', '이 정도면 충분해. 스톱.'],
+          win: ['승부는 끝났네. 다음 판에도 예의를 갖추게.', '이건 운이 아니라 눈이었네.', '자, 다음 판 채비하게.'],
+          lose: ['허허, 네가 한 수 위였군.', '내가 패를 너무 얕봤어.', '이 정도 실력이면 내 제자감이야.'],
+          pibak: ['피까지 빼앗기다니, 오랜만에 창피하군.', '피 몇 장에 흔들리면 큰판은 못 하지.', '흠, 이건 내가 잊고 있던 맛이군.']
         })
       }),
       Object.freeze({
-        id: 'younghee',
-        name: '박영희',
-        title: '시장통 피 사냥꾼',
-        style: '피 수집형',
+        id: 'jungmadam',
+        name: '정마담',
+        title: '판을 쥐는 마담',
+        style: '우아한 계산형',
         difficulty: 'normal',
-        avatar: '🧺',
-        color: '#f472b6',
+        avatar: '💋',
+        color: '#e879a6',
         profile: Object.freeze({
           difficulty: 'normal',
           noise: 50,
@@ -3102,23 +3102,23 @@
           shakeBias: 0.4
         }),
         lines: Object.freeze({
-          start: ['알뜰하게 피부터 챙겨봅시다!', '쌍피는 내 눈을 못 피해요.', '오늘 장사 잘 될 것 같네!'],
-          capture: ['알짜배기 하나 건졌네~', '티끌 모아 태산, 피 모아 점수!', '이 패는 내 장바구니로 쏙!'],
-          ppeok: ['아이고, 손이 미끄러졌네!', '괜찮아, 나중에 내가 깨면 그만이지!', '바닥에 킵 해둘게요~'],
-          go: ['아직 더 챙길 피가 남았어! 고!', '한 번 더 긁어모아 봅시다, 고!', '쌍피 냄새가 나는데? 고!'],
-          stop: ['이만하면 남는 장사! 스톱!', '계산 끝! 딱 좋게 스톱!', '욕심부리면 탈 나지, 스톱!'],
-          win: ['피박까지 알뜰하게 잘 먹었습니다!', '역시 실속파가 이기는 법이지~', '다음 판도 살림 좀 보태주세요!'],
-          lose: ['아까 그 쌍피만 먹었어도!', '어머, 손해 보고 장사했네!', '다음엔 피 한 장도 안 줄 거야!'],
-          pibak: ['세상에, 피 장사꾼이 피박을 쓰다니!', '내 피 다 어디 갔어?!', '피박은 진짜 자존심 상하네!']
+          start: ['앉아요. 오늘 판은 제가 접수할게요.', '패는 예쁜 손이 잡아야 하는 거예요.', '여기선 끝까지 웃는 사람이 이기는 거예요.'],
+          capture: ['이 패는 제 자리로 돌아온 거예요.', '음, 딱 계산대로예요.', '고맙게도 잘 나와 주네요.'],
+          ppeok: ['어머, 손이 조금 미끄러졌네요.', '한 번의 실수로 흔들리진 않아요.', '이건 제 실수가 아니라 판이 심심한 거예요.'],
+          go: ['아직 돈 냄새가 나요. 고.', '이 판은 제가 끝을 볼게요. 고.', '지금 멈추면 손해야요. 고.'],
+          stop: ['여기서 정리할게요. 스톱.', '욕심은 금물이에요. 스톱.', '계산이 끝났으니 접을게요. 스톱.'],
+          win: ['다음엔 좀 더 큰 판으로 불러주세요.', '제 계산은 틀리지 않아요.', '지갑은 잘 챙기셨죠?'],
+          lose: ['이럴 수가, 판을 너무 가볍게 봤네요.', '한 장만 더 있었으면 참 아쉬워라.', '다음엔 그 패, 절대 안 놓쳐요.'],
+          pibak: ['피까지 가져가시다니, 매너가 없네요.', '이건 자존심이 상하는데요.', '이만큼 잃었으면 다음엔 제가 가져갈 차례예요.']
         })
       }),
       Object.freeze({
-        id: 'doryeong',
-        name: '이도령',
-        title: '청사초롱 선비',
-        style: '신중형',
+        id: 'jjakkwi',
+        name: '짝귀',
+        title: '좁쌀 같은 승부사',
+        style: '잔머리 눈치형',
         difficulty: 'normal',
-        avatar: '📜',
+        avatar: '🃏',
         color: '#a78bfa',
         profile: Object.freeze({
           difficulty: 'normal',
@@ -3131,23 +3131,23 @@
           shakeBias: 0.35
         }),
         lines: Object.freeze({
-          start: ['예의를 갖추어 한 수 배우겠소.', '돌다리도 두드려 보고 패를 내리다.', '군자의 화투는 급하지 않소.'],
-          capture: ['적당한 때에 거두어들이는 법.', '이 한 쌍은 꼭 필요했소.', '차분히 족보가 갖춰지는구려.'],
-          ppeok: ['허허, 운수가 잠시 비켜갔구려.', '세 장이 모이니 이 또한 풍류라.', '기다리면 다시 기회가 오겠지.'],
-          go: ['형세가 아직 안전하니 한 번 더 고!', '조금만 더 살피고 가겠소. 고!', '계산이 섰소. 고를 부르겠소!'],
-          stop: ['과욕은 화를 부르는 법. 스톱!', '여기서 멈추는 것이 도리겠소. 스톱!', '안전하게 승리를 거두리다. 스톱!'],
-          win: ['신중함이 승리를 가져다주었구려.', '좋은 대국이었소. 감사하오.', '부족한 실력에 운이 따랐소.'],
-          lose: ['허허, 한 수 잘 배웠소이다.', '내 계산에 빈틈이 있었군.', '다음 판엔 더 깊이 궁리해 보리다.'],
-          pibak: ['아이고, 피를 너무 가벼이 여겼군!', '선비 체면에 피박이라니 민망하오.', '피 한 장의 무게를 새삼 깨달았소.']
+          start: ['어이구, 오늘은 내가 좀 손봐야겠네.', '형님, 저 패 잘 못 다뤄요. 봐주세요.', '좌판이 좁으니까 빨리 끝냅시다.'],
+          capture: ['오케이, 이 한 장은 내 거.', '놓칠 뻔했네. 잘했다, 나.', '기다리던 패가 딱 왔어요.'],
+          ppeok: ['아이고, 내가 이걸 왜 냈지?', '뻑 정도야. 다음에 내가 깨면 되지.', '손이 미끄러졌어요, 형님. 봐주세요.'],
+          go: ['여기서 멈추면 바보지. 고!', '아직 더 먹을 게 남았어. 고!', '한 번만 더 가면 돼. 고!'],
+          stop: ['이 정도면 봐줄 만하죠? 스톱.', '더 가면 위험해요. 스톱.', '짐 싸는 게 나아요. 스톱.'],
+          win: ['어때요, 나도 좀 하는 편이죠?', '이 정도면 밥값은 했네.', '다음 판에도 잘 부탁합니다.'],
+          lose: ['아이고, 나 원래 이런 판 못해요.', '형님 너무하네요. 한 장만 봐주지.', '이번 판은 잊을게요.'],
+          pibak: ['피까지 뺏기면 이건 거지잖아요!', '내 피, 내 피 어디 갔어!', '이건 너무해요, 형님.']
         })
       }),
       Object.freeze({
-        id: 'gildong',
-        name: '홍길동',
-        title: '번개 손 승부사',
-        style: '공격형',
+        id: 'agwi',
+        name: '아귀',
+        title: '패를 삼키는 아귀',
+        style: '압박 강공형',
         difficulty: 'hard',
-        avatar: '⚡',
+        avatar: '🐟',
         color: '#fb923c',
         profile: Object.freeze({
           difficulty: 'hard',
@@ -3160,23 +3160,23 @@
           shakeBias: 0.95
         }),
         lines: Object.freeze({
-          start: ['동에 번쩍 서에 번쩍, 판을 흔들어 볼까!', '피박·광박 각오해 두시는 게 좋을걸!', '속전속결로 끝내주지!'],
-          capture: ['놓치지 않는다! 정확히 내 패!', '흐름을 완전히 탔어!', '점점 판이 내 쪽으로 기우는군!'],
-          ppeok: ['칫, 잠깐 빗나갔군. 다음 턴에 깨주지!', '자뻑 각을 만들어 볼까?', '바닥에 덫을 깔아뒀다!'],
-          go: ['이 기세로 3고까지 뚫는다! 고!', '상대 패가 말랐어! 무조건 고!', '배수 키워서 한 방에 끝낸다! 고!'],
-          stop: ['빈틈을 찔렀다! 깔끔하게 스톱!', '고박 위험 전엔 칼같이 끊어야지. 스톱!', '승부사의 직감! 스톱!'],
-          win: ['하하! 계산대로 완벽한 승리다!', '번개 같은 한 수, 어땠나?', '더 큰 판으로 다시 붙자고!'],
-          lose: ['크윽, 강적을 만났군!', '예상 밖의 한 방에 당했어!', '다음엔 배로 갚아주마!'],
-          pibak: ['으악! 공격에만 몰두하다 피박이라니!', '방심한 틈을 찔렸군!', '다음 판엔 피부터 쓸어 담겠다!']
+          start: ['패만 좋으면 무슨 수든 쓴다. 시작해라.', '여기선 예의 같은 거 없어. 판으로 말해.', '오늘 판, 전부 내 거다.'],
+          capture: ['이건 내 거야. 손 떼.', '한 장 한 장 다 내 계산 안에 있어.', '먹을 때는 망설이지 마라.'],
+          ppeok: ['뻑? 상관없어. 한 번 더 깨면 그만이야.', '판이 재밌어졌네. 계속 가자.', '내 패가 나한테 거짓말을 하냐.'],
+          go: ['한 번에 끝낸다. 고!', '목숨 걸고 가는 거야. 고!', '이 판은 접지 않아. 고!'],
+          stop: ['여기서 끊는다. 잃기 전에. 스톱.', '스톱. 더는 안 봐줘.', '계산은 이제 끝이야. 스톱.'],
+          win: ['봤지? 판은 이기는 놈이 다 가져가는 거야.', '다음엔 판비나 제대로 준비해서 와라.', '내 실력이 무서워지기 전에 접어라.'],
+          lose: ['내가 졌어? 어디서 이런 놈이 나와.', '패가 안 붙으면 끝인 거야. 인정한다.', '이 판은 잊겠다. 다음 판 온다.'],
+          pibak: ['피박? 이건 내 자존심 건드리는 거야.', '한 장도 안 남기고 가져갔군!', '좋아, 다음 판에 돈으로 갚아주지.']
         })
       }),
       Object.freeze({
-        id: 'okran',
-        name: '장옥란',
-        title: '백전노장 타짜 할매',
-        style: '완벽주의 전략형',
+        id: 'pyeonggyeongjang',
+        name: '평경장',
+        title: '좌판의 평경장',
+        style: '냉정한 계산형',
         difficulty: 'hard',
-        avatar: '🦊',
+        avatar: '🎲',
         color: '#facc15',
         profile: Object.freeze({
           difficulty: 'hard',
@@ -3189,27 +3189,37 @@
           shakeBias: 0.85
         }),
         lines: Object.freeze({
-          start: ['얘야, 할미 눈엔 네 패까지 다 보인단다~', '남은 패 몇 장인지 다 세고 있느니라.', '호락호락하게 안 져줄 거야!'],
-          capture: ['그렇지~ 딱 기다리던 패가 나와줬네!', '요건 너 주면 큰일 날 패라서 내가 먹는다.', '할미 손맛 좀 볼래?'],
-          ppeok: ['어이구, 노인네 눈이 침침했나? 호호!', '이것도 다 큰 그림이란다~', '내가 싼 뻑은 내가 먹어야 제맛이지!'],
-          go: ['아직 넌 나려면 멀었어! 고!', '점수 딱 올라갈 패가 손에 있지롱~ 고!', '할미가 고 하면 끝까지 가는 거야, 고!'],
-          stop: ['요기까지! 꼬리 잡히기 전에 스톱!', '호랑이도 물러설 때를 아는 법이지. 스톱!', '계산 끝! 지갑 여시게, 스톱!'],
-          win: ['호호, 역시 묵은 장이 깊은 맛이 나는 법이지!', '다음엔 패 계산부터 배우고 오렴!', '할미 아직 쌩쌩하지?'],
-          lose: ['어머나, 이 할미를 이기다니 제법인데?', '젊은 친구 손놀림이 매섭구먼!', '오랜만에 진땀 좀 뺐어, 호호!'],
-          pibak: ['아이고 내 허리야, 피박까지 쓰게 만드네!', '할미 체면이 말이 아니구먼!', '독한 녀석, 피를 싹 다 긁어갔네!']
+          start: ['판은 계산이야. 감으로 하는 놈은 여기서 끝나.', '좌판 상황부터 읽어. 그다음에 말해.', '누가 이길지, 이미 계산 끝났어.'],
+          capture: ['필요한 패는 반드시 내가 먹어.', '계산대로군. 계속 가지.', '한 장 한 장이 다 의미가 있어.'],
+          ppeok: ['계산 하나가 어긋났군. 크게 볼 것 없어.', '뻑은 판의 흐름일 뿐이야.', '다음 수로 만회하면 돼.'],
+          go: ['배수 싸움이야. 고.', '확률이 내 편이야. 고.', '여기서 멈추면 손해야. 고.'],
+          stop: ['이 판은 이걸로 끝. 스톱.', '위험 대비 수익이 맞아. 스톱.', '계산대로 걷고 접는다. 스톱.'],
+          win: ['예상한 결과야.', '판을 읽으면 이기는 건 당연해.', '다음 판도 같은 계산이야.'],
+          lose: ['변수 하나를 놓쳤군.', '이 정도 걸림은 계산 안이었다.', '다음 판은 수치가 달라.'],
+          pibak: ['피를 다 뺏기다니, 나를 얕봤군.', '이 손실은 기록해 둬야겠어.', '계산에서 피가 빠졌군. 다음엔 없어.']
         })
       })
     ]);
 
     const DIFFICULTY_DEFAULTS = Object.freeze({
-      easy: 'cheolsu',
-      normal: 'doryeong',
-      hard: 'okran'
+      easy: 'gwangryeol',
+      normal: 'jjakkwi',
+      hard: 'pyeonggyeongjang'
+    });
+
+    // 이전 캐릭터 id → 새 id (저장된 전적/설정 호환)
+    const LEGACY_IDS = Object.freeze({
+      cheolsu: 'gwangryeol',
+      younghee: 'jungmadam',
+      doryeong: 'jjakkwi',
+      gildong: 'agwi',
+      okran: 'pyeonggyeongjang'
     });
 
     function getCharacter(idOrDiff) {
       if (!idOrDiff) return CHARACTERS[4];
-      const byId = CHARACTERS.find(c => c.id === idOrDiff);
+      const resolved = LEGACY_IDS[idOrDiff] || idOrDiff;
+      const byId = CHARACTERS.find(c => c.id === resolved);
       if (byId) return byId;
       const mapped = DIFFICULTY_DEFAULTS[idOrDiff];
       if (mapped) return CHARACTERS.find(c => c.id === mapped);
@@ -3931,6 +3941,7 @@
 
     return {
       CHARACTERS,
+      LEGACY_IDS,
       getCharacter,
       getDialogue,
       buildObservation,
@@ -3944,211 +3955,544 @@
   /* =========================================================================
    * 4. CardArt (Original Vector Hwatu SVG) & FX (60fps Anim + Offline SFX)
    * ========================================================================= */
+  /* 전통 화투(SVG) 렌더러 — 실제 화투패 룩 */
   const CardArt = (() => {
     const cache = Object.create(null);
 
-    function monthMotif(month, card) {
-      switch (month) {
-        case 1: // 1월 송학 (소나무 + 붉은 해 + 흰 학)
-          return '<rect x="3" y="3" width="58" height="90" rx="3" fill="#fffdf7"/>' +
-            (card.category === 'bright'
-              ? '<circle cx="44" cy="28" r="11" fill="#dc2626"/>'
-              : '') +
-            '<path d="M5 78 Q22 65 36 74 Q48 68 59 77 L59 93 L5 93 Z" fill="#15803d"/>' +
-            '<path d="M6 34 L22 25 L16 38 L34 29 L24 44" stroke="#111827" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
-            '<path d="M8 31 Q17 20 26 29 M22 33 Q33 21 43 32" stroke="#166534" stroke-width="4.5" stroke-linecap="round" fill="none"/>' +
-            (card.category === 'bright'
-              ? '<path d="M22 65 Q30 53 43 58 Q46 66 36 71 Q26 71 22 65 Z" fill="#ffffff" stroke="#111827" stroke-width="1.4"/>' +
-                '<path d="M21 65 L14 68 L22 69 Z" fill="#111827"/>' +
-                '<path d="M40 60 Q45 48 41 43" stroke="#111827" stroke-width="2.6" stroke-linecap="round" fill="none"/>' +
-                '<circle cx="41" cy="43" r="3" fill="#ffffff" stroke="#111827" stroke-width="1.1"/>' +
-                '<circle cx="40.5" cy="41.5" r="1.2" fill="#dc2626"/>' +
-                '<path d="M43 43 L50 44 L43 45.5 Z" fill="#ca8a04"/>' +
-                '<path d="M30 70 L28 84 M35 70 L37 84" stroke="#111827" stroke-width="1.5"/>'
-              : '<path d="M10 62 Q22 46 34 62 M26 65 Q39 48 52 65" stroke="#166534" stroke-width="4" stroke-linecap="round" fill="none"/>' +
-                '<path d="M20 79 L20 56" stroke="#111827" stroke-width="4" stroke-linecap="round"/>');
-        case 2: // 2월 매조 (매화 + 휘파람새)
-          return '<path d="M7 89 Q18 68 28 54 Q39 40 57 26" stroke="#451a03" stroke-width="4.5" stroke-linecap="round" fill="none"/>' +
-            '<path d="M22 64 Q14 48 19 36" stroke="#451a03" stroke-width="3" stroke-linecap="round" fill="none"/>' +
-            '<g fill="#fb7185" stroke="#be123c" stroke-width="0.7">' +
-              '<circle cx="19" cy="36" r="5.5"/><circle cx="32" cy="48" r="6"/><circle cx="47" cy="33" r="5.5"/><circle cx="53" cy="24" r="4"/>' +
-            '</g>' +
-            '<g fill="#fef08a"><circle cx="19" cy="36" r="1.8"/><circle cx="32" cy="48" r="2"/><circle cx="47" cy="33" r="1.8"/></g>' +
-            (card.category === 'animal'
-              ? '<ellipse cx="37" cy="63" rx="11" ry="7" fill="#65a30d" stroke="#1a2e05" stroke-width="1.2"/>' +
-                '<path d="M26 65 L17 72 L28 68 Z" fill="#365314"/>' +
-                '<ellipse cx="38" cy="66" rx="7" ry="4" fill="#fde047"/>' +
-                '<circle cx="45" cy="57" r="4.5" fill="#84cc16" stroke="#1a2e05" stroke-width="1"/>' +
-                '<circle cx="46.5" cy="56" r="1.2" fill="#111827"/>' +
-                '<path d="M49 56 L55 57.5 L49 59 Z" fill="#ea580c"/>'
-              : '<circle cx="43" cy="56" r="5" fill="#fda4af" stroke="#be123c" stroke-width="0.7"/><circle cx="43" cy="56" r="1.6" fill="#fef08a"/>');
-        case 3: // 3월 벚꽃 (벚꽃 + 만막 휘장)
-          return '<rect x="3" y="3" width="58" height="90" rx="3" fill="#fff5f7"/>' +
-            '<path d="M8 38 Q26 30 56 26" stroke="#5c3a21" stroke-width="2.8" fill="none"/>' +
-            '<g fill="#fbcfe8" stroke="#ec4899" stroke-width="0.9">' +
-              '<circle cx="18" cy="34" r="7.5"/><circle cx="34" cy="26" r="8"/><circle cx="48" cy="34" r="7"/><circle cx="28" cy="42" r="6.5"/>' +
-            '</g>' +
-            '<g fill="#be185d"><circle cx="18" cy="34" r="2"/><circle cx="34" cy="26" r="2.2"/><circle cx="48" cy="34" r="2"/><circle cx="28" cy="42" r="1.8"/></g>' +
-            (card.category === 'bright'
-              ? '<path d="M4 58 L60 58 L60 92 L4 92 Z" fill="#b91c1c"/>' +
-                '<path d="M4 66 L60 66 L60 74 L4 74 Z" fill="#ffffff"/>' +
-                '<path d="M4 74 L60 74 L60 80 L4 80 Z" fill="#18181b"/>' +
-                '<path d="M4 58 Q18 67 32 58 Q46 67 60 58" stroke="#fbbf24" stroke-width="2.2" fill="none"/>' +
-                '<circle cx="18" cy="63" r="2" fill="#fbbf24"/><circle cx="46" cy="63" r="2" fill="#fbbf24"/>'
-              : '<g fill="#f9a8d4" stroke="#db2777" stroke-width="0.8"><circle cx="20" cy="68" r="6"/><circle cx="42" cy="70" r="6.5"/></g>' +
-                '<circle cx="20" cy="68" r="1.8" fill="#be185d"/><circle cx="42" cy="70" r="1.8" fill="#be185d"/>');
-        case 4: // 4월 흑싸리 (등나무 송이 + 두견새/초승달)
-          return '<path d="M6 22 Q32 16 58 22" stroke="#18181b" stroke-width="3" fill="none"/>' +
-            '<g fill="#4c1d95" stroke="#1e1b4b" stroke-width="0.8">' +
-              '<ellipse cx="14" cy="30" rx="4.5" ry="6"/><ellipse cx="15" cy="41" rx="4" ry="5.5"/><ellipse cx="14" cy="51" rx="3.2" ry="4.5"/>' +
-              '<ellipse cx="28" cy="28" rx="4.5" ry="6"/><ellipse cx="29" cy="39" rx="4" ry="5.5"/><ellipse cx="28" cy="49" rx="3" ry="4"/>' +
-              '<ellipse cx="44" cy="29" rx="4.5" ry="6"/><ellipse cx="43" cy="40" rx="3.8" ry="5"/><ellipse cx="43" cy="50" rx="3" ry="4"/>' +
-            '</g>' +
-            (card.category === 'animal'
-              ? '<path d="M45 25 A7 7 0 1 0 53 33 A5.5 5.5 0 1 1 45 25 Z" fill="#fef08a"/>' +
-                '<path d="M16 68 Q31 55 46 66 L36 74 L22 74 Z" fill="#334155" stroke="#0f172a" stroke-width="1.2"/>' +
-                '<path d="M24 62 L14 52 L28 58 Z" fill="#475569"/>' +
-                '<circle cx="45" cy="63" r="4" fill="#334155"/><path d="M49 62.5 L55 61.5 L49 64.5 Z" fill="#f59e0b"/>'
-              : '<path d="M14 78 Q32 64 50 78" stroke="#18181b" stroke-width="3.5" stroke-linecap="round" fill="none"/>' +
-                '<circle cx="14" cy="66" r="3" fill="#6d28d9"/><circle cx="44" cy="64" r="3" fill="#6d28d9"/>');
-        case 5: // 5월 난초 (창포/난초 + 팔교 다리)
-          return '<rect x="3" y="68" width="58" height="24" fill="#e0f2fe"/>' +
-            '<path d="M12 88 Q16 50 11 25 M24 88 Q27 46 23 22 M38 88 Q35 50 40 24 M50 88 Q48 52 54 28" stroke="#15803d" stroke-width="3.2" stroke-linecap="round" fill="none"/>' +
-            '<path d="M18 35 C12 29 14 23 20 26 C26 23 28 29 22 35 Z" fill="#4338ca"/>' +
-            '<path d="M36 33 C30 27 32 21 38 24 C44 21 46 27 40 33 Z" fill="#6366f1"/>' +
-            '<circle cx="20" cy="31" r="1.5" fill="#fde047"/><circle cx="38" cy="29" r="1.5" fill="#fde047"/>' +
-            (card.category === 'animal'
-              ? '<path d="M5 68 L28 60 L34 64 L59 58 L59 66 L33 73 L26 69 L5 77 Z" fill="#92400e" stroke="#451a03" stroke-width="1.3"/>' +
-                '<path d="M14 75 L14 88 M29 70 L29 88 M48 69 L48 88" stroke="#78350f" stroke-width="3"/>'
-              : '<path d="M10 78 Q22 74 32 78 T54 78" stroke="#0284c7" stroke-width="1.5" fill="none"/>');
-        case 6: // 6월 모란 (붉은 모란꽃 + 나비)
-          return '<path d="M14 78 L24 66 M50 78 L40 66 M32 82 L32 72" stroke="#166534" stroke-width="4" stroke-linecap="round"/>' +
-            '<ellipse cx="18" cy="76" rx="8" ry="4.5" fill="#15803d" transform="rotate(-25 18 76)"/>' +
-            '<ellipse cx="46" cy="76" rx="8" ry="4.5" fill="#15803d" transform="rotate(25 46 76)"/>' +
-            '<circle cx="32" cy="62" r="14.5" fill="#be123c"/>' +
-            '<circle cx="24" cy="58" r="8" fill="#e11d48"/><circle cx="40" cy="58" r="8" fill="#e11d48"/>' +
-            '<circle cx="32" cy="54" r="8" fill="#fb7185"/><circle cx="32" cy="63" r="5" fill="#fde047"/>' +
-            (card.category === 'animal'
-              ? '<g transform="translate(0,-2)">' +
-                  '<ellipse cx="24" cy="32" rx="7" ry="5" fill="#f59e0b" stroke="#111827" stroke-width="1" transform="rotate(-22 24 32)"/>' +
-                  '<ellipse cx="38" cy="32" rx="7" ry="5" fill="#fbbf24" stroke="#111827" stroke-width="1" transform="rotate(22 38 32)"/>' +
-                  '<ellipse cx="31" cy="34" rx="1.8" ry="6" fill="#111827"/>' +
-                '</g>'
-              : '');
-        case 7: // 7월 홍싸리 (붉은 싸리 + 멧돼지)
-          return '<path d="M9 84 Q24 48 40 72 M22 86 Q38 42 55 76" stroke="#9a3412" stroke-width="3" fill="none"/>' +
-            '<g fill="#ea580c">' +
-              '<circle cx="17" cy="58" r="3.5"/><circle cx="24" cy="49" r="3.8"/><circle cx="33" cy="56" r="3.5"/>' +
-              '<circle cx="37" cy="45" r="3.8"/><circle cx="45" cy="52" r="3.5"/><circle cx="51" cy="60" r="3.5"/>' +
-            '</g>' +
-            '<g fill="#15803d"><circle cx="13" cy="66" r="3"/><circle cx="29" cy="64" r="3"/><circle cx="48" cy="68" r="3"/></g>' +
-            (card.category === 'animal'
-              ? '<ellipse cx="31" cy="70" rx="15" ry="9" fill="#3f3f46" stroke="#18181b" stroke-width="1.3"/>' +
-                '<circle cx="45" cy="68" r="5.5" fill="#3f3f46" stroke="#18181b" stroke-width="1.1"/>' +
-                '<path d="M47 71 Q53 69 51 64" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" fill="none"/>' +
-                '<circle cx="46" cy="66" r="1.2" fill="#fff"/>' +
-                '<path d="M21 78 L20 87 M27 78 L27 87 M38 77 L38 87 M44 76 L45 87" stroke="#18181b" stroke-width="2.4" stroke-linecap="round"/>'
-              : '');
-        case 8: // 8월 공산 (검은 민둥산 + 보름달 + 기러기)
-          return (card.category === 'bright'
-              ? '<rect x="3" y="3" width="58" height="90" rx="3" fill="#dc2626"/>' +
-                '<circle cx="32" cy="34" r="16" fill="#fffbeb" stroke="#fde047" stroke-width="1.5"/>'
-              : card.category === 'animal'
-              ? '<rect x="3" y="3" width="58" height="90" rx="3" fill="#fed7aa"/>' +
-                '<path d="M12 34 Q18 26 24 34 M27 25 Q33 17 39 25 M40 36 Q46 28 52 36" stroke="#111827" stroke-width="2.8" stroke-linecap="round" fill="none"/>'
-              : '<rect x="3" y="3" width="58" height="90" rx="3" fill="#fef9c3"/>' +
-                '<path d="M16 58 L24 40 M28 56 L32 36 M40 58 L46 40" stroke="#78350f" stroke-width="2.2" stroke-linecap="round"/>') +
-            '<path d="M3 93 L3 72 Q22 44 37 64 Q50 48 61 70 L61 93 Z" fill="#18181b"/>';
-        case 9: // 9월 국화 (황국화 + 국진 壽 술잔)
-          return '<path d="M16 82 L26 68 M48 82 L38 68" stroke="#15803d" stroke-width="4" stroke-linecap="round"/>' +
-            '<circle cx="32" cy="64" r="14" fill="#ca8a04"/>' +
-            '<circle cx="32" cy="64" r="10.5" fill="#facc15" stroke="#a16207" stroke-width="1" stroke-dasharray="3 2"/>' +
-            '<circle cx="32" cy="64" r="5" fill="#fef08a"/>' +
-            (card.isGukjin
-              ? '<path d="M18 25 L46 25 L41 42 L23 42 Z" fill="#b91c1c" stroke="#f59e0b" stroke-width="1.8"/>' +
-                '<rect x="25" y="42" width="14" height="5" rx="1" fill="#451a03"/>' +
-                '<text x="32" y="37" text-anchor="middle" font-size="10" font-weight="900" fill="#fde047">壽</text>'
-              : '<path d="M16 84 Q32 76 48 84" stroke="#166534" stroke-width="3" fill="none"/>');
-        case 10: // 10월 단풍 (단풍잎 + 사슴)
-          return '<polygon points="22,21 25,29 33,27 27,34 31,42 22,38 13,42 17,34 11,27 19,29" fill="#dc2626" stroke="#7f1d1d" stroke-width="0.8"/>' +
-            '<polygon points="46,30 49,36 55,35 50,40 53,46 46,43 39,46 42,40 37,35 43,36" fill="#ea580c" stroke="#7c2d12" stroke-width="0.8"/>' +
-            (card.category === 'animal'
-              ? '<ellipse cx="29" cy="71" rx="12" ry="7" fill="#d97706" stroke="#78350f" stroke-width="1.2"/>' +
-                '<circle cx="24" cy="70" r="1.5" fill="#fef3c7"/><circle cx="31" cy="69" r="1.5" fill="#fef3c7"/><circle cx="28" cy="73" r="1.4" fill="#fef3c7"/>' +
-                '<rect x="36" y="54" width="4.5" height="15" rx="2" fill="#d97706"/>' +
-                '<circle cx="40" cy="54" r="4.5" fill="#b45309"/>' +
-                '<path d="M40 49 L38 41 M40 45 L44 42 M42 49 L46 44" stroke="#451a03" stroke-width="1.5" stroke-linecap="round"/>' +
-                '<path d="M21 77 L20 88 M35 77 L37 88" stroke="#92400e" stroke-width="2.4" stroke-linecap="round"/>'
-              : '<polygon points="34,60 37,67 44,66 39,71 42,78 34,74 26,78 29,71 24,66 31,67" fill="#b91c1c"/>');
-        case 11: // 11월 오동 (오동잎 + 봉황 / 쌍피)
-          return '<path d="M10 74 Q22 52 32 60 Q42 52 54 74 L44 88 L20 88 Z" fill="#18181b"/>' +
-            '<path d="M16 74 L32 66 L48 74" stroke="#3f3f46" stroke-width="1.5" fill="none"/>' +
-            (card.category === 'bright'
-              ? '<circle cx="32" cy="37" r="9.5" fill="#dc2626" stroke="#f59e0b" stroke-width="1.5"/>' +
-                '<path d="M10 42 Q22 25 32 34 Q42 25 54 42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" fill="none"/>' +
-                '<path d="M16 48 Q32 37 48 48" stroke="#fde047" stroke-width="2.5" stroke-linecap="round" fill="none"/>' +
-                '<circle cx="32" cy="27" r="4" fill="#fbbf24"/>'
-              : card.subType === 'double'
-              ? '<circle cx="22" cy="40" r="9" fill="#eab308" stroke="#18181b" stroke-width="1.3"/>' +
-                '<circle cx="42" cy="40" r="9" fill="#ca8a04" stroke="#18181b" stroke-width="1.3"/>' +
-                '<path d="M18 40 L26 40 M22 36 L22 44 M38 40 L46 40 M42 36 L42 44" stroke="#18181b" stroke-width="1.5"/>'
-              : '<circle cx="32" cy="41" r="8" fill="#312e81"/><circle cx="22" cy="48" r="5" fill="#4338ca"/><circle cx="42" cy="48" r="5" fill="#4338ca"/>');
-        case 12: // 12월 비 (빗줄기 + 비광 우산/선비 + 제비 + 쌍피 북)
-          return '<rect x="3" y="3" width="58" height="90" rx="3" fill="#eff6ff"/>' +
-            '<path d="M10 18 L6 46 M22 14 L18 46 M36 16 L32 46 M50 18 L46 48" stroke="#334155" stroke-width="1.6" stroke-dasharray="5 3"/>' +
-            (card.category === 'bright'
-              ? '<path d="M12 52 Q32 30 52 52 Z" fill="#dc2626" stroke="#111827" stroke-width="1.5"/>' +
-                '<path d="M22 52 Q32 34 42 52" stroke="#fde047" stroke-width="2" fill="none"/>' +
-                '<rect x="28" y="52" width="8" height="28" rx="2" fill="#1e293b"/>' +
-                '<circle cx="51" cy="79" r="5" fill="#16a34a" stroke="#14532d" stroke-width="1"/>'
-              : card.category === 'animal'
-              ? '<path d="M13 54 Q30 43 49 52 L35 61 L24 67 Z" fill="#0f172a"/>' +
-                '<path d="M26 57 L38 56 L33 61 Z" fill="#ffffff"/>' +
-                '<path d="M10 74 Q26 60 44 74" stroke="#15803d" stroke-width="2.5" fill="none"/>'
-              : card.subType === 'double'
-              ? '<circle cx="32" cy="64" r="14" fill="#fef08a" stroke="#1e293b" stroke-width="2"/>' +
-                '<path d="M32 50 A14 14 0 0 1 46 64 A7 7 0 0 1 32 64 A7 7 0 0 0 18 64 A14 14 0 0 1 32 50 Z" fill="#dc2626"/>' +
-                '<path d="M32 78 A14 14 0 0 1 18 64 A7 7 0 0 1 32 64 A7 7 0 0 0 46 64 A14 14 0 0 1 32 78 Z" fill="#2563eb"/>'
-              : '<path d="M12 68 Q26 54 44 68 Q52 74 58 66" stroke="#15803d" stroke-width="3" fill="none"/>');
-        default:
-          return '';
-      }
+    const THEMES = {
+      classic: { face: '#fdf9ef', edge: '#d7c5a4', frame: '#8e2c28', brightFrame: '#a8332c', grain: '#e6d8bb' },
+      jade:    { face: '#f3f8f4', edge: '#b9d2c7', frame: '#1f6b58', brightFrame: '#217a63', grain: '#d5e6dd' },
+      royal:   { face: '#fbf7ea', edge: '#cdb78d', frame: '#231e18', brightFrame: '#c1912f', grain: '#e4d8b8' }
+    };
+
+    /* ---------------- primitives ---------------- */
+    function G(x, y, inner, rot) {
+      return '<g transform="translate(' + x + ' ' + y + ')' + (rot ? ' rotate(' + rot + ' ' + x + ' ' + y + ')' : '') + '">' + inner + '</g>';
     }
 
-    function ribbonOverlay(card) {
-      if (card.category !== 'ribbon') return '';
-      let fill = '#475569';
-      let label = '띠';
-      if (card.subType === 'hong') { fill = '#dc2626'; label = '홍단'; }
-      else if (card.subType === 'cheong') { fill = '#2563eb'; label = '청단'; }
-      else if (card.subType === 'cho') { fill = '#7c3aed'; label = '초단'; }
-      return '<g transform="rotate(-14 32 54)">' +
-        '<rect x="6" y="46" width="52" height="15" rx="3" fill="' + fill + '" stroke="#fff" stroke-width="1.2"/>' +
-        '<text x="32" y="57" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">' + label + '</text>' +
+    function fan(cx, cy, r, rot, count, spread, color, w) {
+      let s = '';
+      for (let i = 0; i < count; i++) {
+        const a = (rot - spread / 2 + (spread / (count - 1)) * i) * Math.PI / 180;
+        s += '<line x1="' + cx + '" y1="' + cy + '" x2="' + (cx + Math.cos(a) * r).toFixed(1) + '" y2="' + (cy + Math.sin(a) * r).toFixed(1) +
+          '" stroke="' + color + '" stroke-width="' + (w || 1.5) + '" stroke-linecap="round"/>';
+      }
+      return s;
+    }
+
+    function petalsRing(cx, cy, radius, rx, ry, count, fill, edge, rotBase) {
+      let s = '';
+      for (let i = 0; i < count; i++) {
+        const a = (rotBase || 0) + i * (360 / count);
+        s += '<g transform="rotate(' + a.toFixed(2) + ' ' + cx + ' ' + cy + ')">' +
+          '<ellipse cx="' + cx + '" cy="' + (cy - radius) + '" rx="' + rx + '" ry="' + ry +
+          '" fill="' + fill + '" stroke="' + edge + '" stroke-width="0.45"/></g>';
+      }
+      return s;
+    }
+
+    function blossom(cx, cy, r, fill, edge, rot) {
+      let s = '<g transform="translate(' + cx + ' ' + cy + ')' + (rot ? ' rotate(' + rot + ')' : '') + '">';
+      for (let i = 0; i < 5; i++) {
+        const a = (-90 + i * 72) * Math.PI / 180;
+        s += '<circle cx="' + (Math.cos(a) * r * 0.6).toFixed(2) + '" cy="' + (Math.sin(a) * r * 0.6).toFixed(2) +
+          '" r="' + (r * 0.55).toFixed(2) + '" fill="' + fill + '" stroke="' + edge + '" stroke-width="0.45"/>';
+      }
+      return s + '<circle r="' + (r * 0.19).toFixed(2) + '" fill="#f6d97a"/></g>';
+    }
+
+    function stamens(cx, cy, r) {
+      let s = '';
+      for (let i = 0; i < 6; i++) {
+        const a = (i * 60 + 15) * Math.PI / 180;
+        s += '<line x1="' + (cx + Math.cos(a) * 1.1).toFixed(1) + '" y1="' + (cy + Math.sin(a) * 1.1).toFixed(1) +
+          '" x2="' + (cx + Math.cos(a) * r).toFixed(1) + '" y2="' + (cy + Math.sin(a) * r).toFixed(1) +
+          '" stroke="#b03a56" stroke-width="0.45"/>';
+      }
+      return s;
+    }
+
+    function piGlyph(cx, cy, s, rot) {
+      return '<g transform="translate(' + cx + ' ' + cy + ')' + (rot ? ' rotate(' + rot + ')' : '') + ' scale(' + s + ')">' +
+        '<path d="M-4.6 4.6 C-6.2 -3 3.4 -6.4 6.2 -1.4 C8.6 2.8 4.4 6.2 1.6 4.2" fill="none" stroke="#cf4a32" stroke-width="4.4" stroke-linecap="round"/>' +
         '</g>';
     }
 
-    function categoryBadge(card) {
+    function sunDisc(cx, cy, r) {
+      return '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r + 2.4) + '" fill="#eab98c" opacity="0.45"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="#d2402f"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r * 0.7).toFixed(1) + '" fill="#b8202a"/>';
+    }
+
+    function grain(t, month) {
+      const specks = [[7, 14], [18, 22], [29, 11], [41, 17], [52, 9], [9, 41], [24, 36], [38, 48], [55, 39],
+        [13, 63], [33, 61], [49, 68], [21, 78], [44, 82], [58, 74], [6, 86]];
+      const off = (month || 0) % 4;
+      let s = '<g opacity="0.5">';
+      for (let i = 0; i < specks.length; i++) {
+        const p = specks[(i + off * 3) % specks.length];
+        s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (0.3 + (i % 3) * 0.16).toFixed(2) + '" fill="' + t.grain + '"/>';
+      }
+      return s + '</g>';
+    }
+
+    /* ---------------- animals & objects ---------------- */
+    function crane() {
+      return G(36, 66,
+        '<ellipse cx="0" cy="0" rx="11.5" ry="6" fill="#fffdf5" stroke="#3a2a1b" stroke-width="0.9"/>' +
+        '<path d="M-3 -1 C1 -3.4 6 -2.6 8.6 0.4" stroke="#e6ddca" stroke-width="1.1" fill="none"/>' +
+        '<path d="M-9.4 -2.6 C-11.8 -8 -11.4 -12 -10.2 -14.6" stroke="#2b2622" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+        '<circle cx="-10.1" cy="-16" r="2.1" fill="#fffdf5" stroke="#2b2622" stroke-width="0.75"/>' +
+        '<circle cx="-9.7" cy="-17.2" r="0.85" fill="#c1272d"/>' +
+        '<path d="M-12 -16.4 L-16.6 -15.4 L-12 -14.6 Z" fill="#c99a2e"/>' +
+        '<path d="M9 -1 C16 -5 17.6 -11 14 -14.4" stroke="#2b2622" stroke-width="1.9" fill="none" stroke-linecap="round"/>' +
+        '<path d="M9 1.4 C18 1 21.6 -4 19 -7.4" stroke="#3a2a1b" stroke-width="1.4" fill="none" stroke-linecap="round"/>' +
+        '<path d="M-3.4 5.6 L-4.2 14.6 M2.6 5.6 L3.4 14.6" stroke="#3a2a1b" stroke-width="1.1" stroke-linecap="round"/>' +
+        '<path d="M-4.2 14.6 L-8 16.8 M-4.2 14.6 L-0.4 16.8 M3.4 14.6 L-0.4 16.8 M3.4 14.6 L7.2 16.8" stroke="#3a2a1b" stroke-width="0.85" stroke-linecap="round"/>',
+        0
+      );
+    }
+
+    function warbler(cx, cy) {
+      return G(cx, cy,
+        '<path d="M-9 1 C-15 2 -19 6 -18 9 C-13 8 -8 7 -4 5 Z" fill="#6d7c33"/>' +
+        '<ellipse cx="0" cy="0" rx="10.5" ry="7" fill="#94a44e" stroke="#33401f" stroke-width="0.9"/>' +
+        '<ellipse cx="-1" cy="-1" rx="6" ry="4" fill="#bbc97c" opacity="0.85"/>' +
+        '<circle cx="8" cy="-4" r="4.3" fill="#a9b862" stroke="#33401f" stroke-width="0.8"/>' +
+        '<circle cx="9.2" cy="-4.6" r="1.05" fill="#1d2410"/>' +
+        '<path d="M11.8 -4.4 L16.6 -3.2 L11.8 -1.8 Z" fill="#d99a3a"/>' +
+        '<path d="M-2 7 L-2 12 M4 7 L4 12" stroke="#5e4a1c" stroke-width="1.1"/>');
+    }
+
+    function wisteria(x, y, h) {
+      let s = '';
+      for (let i = 0; i < 6; i++) {
+        const t = i / 5;
+        const w = 4.7 - t * 2.5;
+        s += '<ellipse cx="' + (x + Math.sin(i * 1.2) * 1.5).toFixed(1) + '" cy="' + (y + i * (h / 6)).toFixed(1) +
+          '" rx="' + w.toFixed(1) + '" ry="' + (w * 0.82).toFixed(1) + '" fill="' + (i % 2 ? '#7b4da6' : '#65408f') +
+          '" stroke="#4a2c73" stroke-width="0.4"/>';
+      }
+      return s;
+    }
+
+    function cuckoo(cx, cy) {
+      return G(cx, cy,
+        '<path d="M-8 0 C-16 -2 -22 2 -24 7 C-17 5 -11 5 -6 5 Z" fill="#5e6b76"/>' +
+        '<ellipse cx="0" cy="0" rx="11" ry="6.3" fill="#7c8b96" stroke="#2c353d" stroke-width="0.9"/>' +
+        '<path d="M-4 -3 C1 -7 7 -5 9 0" stroke="#5e6b76" stroke-width="1.8" fill="none"/>' +
+        '<circle cx="9.6" cy="-4.2" r="4" fill="#8a99a4" stroke="#2c353d" stroke-width="0.8"/>' +
+        '<circle cx="10.7" cy="-4.8" r="1.05" fill="#141a1f"/>' +
+        '<path d="M13.2 -4.6 L17.6 -3.4 L13.2 -2 Z" fill="#d9a441"/>' +
+        '<path d="M-2 6 L-3 12 M4 6 L5 12" stroke="#2c353d" stroke-width="1.1"/>');
+    }
+
+    function iris(x, y) {
+      return G(x, y,
+        '<path d="M0 0 C-6 -2 -9 -7 -7 -11 C-4 -9 -1 -5 0 0 Z" fill="#6b3fa0" stroke="#3f2166" stroke-width="0.45"/>' +
+        '<path d="M0 0 C6 -2 9 -7 7 -11 C4 -9 1 -5 0 0 Z" fill="#7d4fb5" stroke="#3f2166" stroke-width="0.45"/>' +
+        '<path d="M0 0 C-3 -6 -3 -10 0 -13 C3 -10 3 -6 0 0 Z" fill="#8f60c8" stroke="#3f2166" stroke-width="0.45"/>' +
+        '<circle cy="-1.6" r="1.1" fill="#f0d06a"/>');
+    }
+
+    function bridge() {
+      let s = '<path d="M4 66 L60 58 L60 67 L4 75 Z" fill="#a9763f" stroke="#4a2f18" stroke-width="1"/>';
+      for (let i = 1; i < 7; i++) {
+        const x = 4 + i * 8;
+        const yTop = 66 - i * 1.14;
+        s += '<line x1="' + x.toFixed(1) + '" y1="' + (yTop + 9).toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + yTop.toFixed(1) +
+          '" stroke="#6b4520" stroke-width="0.75"/>';
+      }
+      s += '<path d="M7 60 L57 53" stroke="#7a5227" stroke-width="2.2" stroke-linecap="round"/>' +
+        '<path d="M11 60 L11 67 M27 58 L27 65 M43 56 L43 63 M56 54 L56 61" stroke="#7a5227" stroke-width="1.7" stroke-linecap="round"/>';
+      return s;
+    }
+
+    function butterfly(cx, cy) {
+      return G(cx, cy,
+        '<path d="M0 0 C-10 -14 -18 -6 -14 2 C-11 8 -4 6 0 0 Z" fill="#e8a33a" stroke="#5a3a10" stroke-width="0.8"/>' +
+        '<path d="M0 0 C10 -14 18 -6 14 2 C11 8 4 6 0 0 Z" fill="#f0b552" stroke="#5a3a10" stroke-width="0.8"/>' +
+        '<path d="M0 1 C-8 10 -13 6 -10 1 C-7 -3 -3 -1 0 1 Z" fill="#d98f26" stroke="#5a3a10" stroke-width="0.7"/>' +
+        '<path d="M0 1 C8 10 13 6 10 1 C7 -3 3 -1 0 1 Z" fill="#e8a33a" stroke="#5a3a10" stroke-width="0.7"/>' +
+        '<circle cx="-8" cy="-3" r="1.5" fill="#5a3a10"/><circle cx="8" cy="-3" r="1.5" fill="#5a3a10"/>' +
+        '<path d="M0 -2 L0 9" stroke="#3a2a10" stroke-width="1.5" stroke-linecap="round"/>' +
+        '<path d="M0 -2 C-3 -7 -5 -9 -7 -10 M0 -2 C3 -7 5 -9 7 -10" stroke="#3a2a10" stroke-width="0.7" fill="none"/>');
+    }
+
+    function cloverFlower(x, y) {
+      let s = '';
+      for (let i = 0; i < 5; i++) {
+        const a = i * 72 * Math.PI / 180;
+        s += '<circle cx="' + (x + Math.cos(a) * 2.5).toFixed(1) + '" cy="' + (y + Math.sin(a) * 2.5).toFixed(1) +
+          '" r="2.2" fill="#d2453d" stroke="#8e1c22" stroke-width="0.35"/>';
+      }
+      return s + '<circle cx="' + x + '" cy="' + y + '" r="1.1" fill="#f7d9b6"/>';
+    }
+
+    function boar(cx, cy) {
+      return G(cx, cy,
+        '<ellipse cx="0" cy="0" rx="15" ry="8.8" fill="#4a3a34" stroke="#241a16" stroke-width="1"/>' +
+        '<path d="M9 -5 C16 -7 20 -2 18 3 C15 7 9 6 8 1 Z" fill="#5b4840" stroke="#241a16" stroke-width="0.9"/>' +
+        '<circle cx="16" cy="-1" r="1.1" fill="#f6efe4"/>' +
+        '<path d="M13 4 C18 3 18 6 14 6" stroke="#fff8ec" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
+        '<path d="M-15 -5 l-5 -3 M-12 -7 l-4 -3 M-9 -8 l-3 -3" stroke="#241a16" stroke-width="1.2" stroke-linecap="round"/>' +
+        '<path d="M-8 8 l-1 8 M-2 9 l-1 7 M5 8 l1 8" stroke="#241a16" stroke-width="2" stroke-linecap="round"/>');
+    }
+
+    function mountain(color, goldGrass) {
+      let s = '<path d="M3 92 L3 69 Q15 48 29 62 Q41 44 52 60 Q58 67 61 62 L61 92 Z" fill="' + color + '"/>';
+      const c = goldGrass ? '#e8c27a' : '#4b6b3a';
+      s += '<path d="M8 76 q3 -6 6 0 M20 70 q3 -6 6 0 M33 74 q3 -6 6 0 M46 68 q3 -6 6 0 M54 78 q3 -5 5 0" stroke="' + c +
+        '" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
+      return s;
+    }
+
+    function goose(x, y, s) {
+      return G(x, y, '<path d="M-6 0 Q-3 -3.4 0 0 Q3 -3.4 6 0" stroke="#241c14" stroke-width="1.5" fill="none" stroke-linecap="round"/>', s);
+    }
+
+    function maple(x, y, s, rot, color) {
+      const inner = '<path d="M0 -11 L2.4 -5.2 L8.6 -7.2 L5.4 -1.6 L11 1.2 L5.2 3.2 L6.8 9.6 L1.2 6.6 L0 12 L-1.2 6.6 L-6.8 9.6 L-5.2 3.2 L-11 1.2 L-5.4 -1.6 L-8.6 -7.2 L-2.4 -5.2 Z" fill="' + color + '" stroke="#7d141c" stroke-width="0.4"/>' +
+        '<path d="M0 10 L0 18" stroke="#6b4520" stroke-width="1.1"/>';
+      return '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ') scale(' + s + ')">' + inner + '</g>';
+    }
+
+    function deer(cx, cy) {
+      return G(cx, cy,
+        '<ellipse cx="0" cy="0" rx="13" ry="6.8" fill="#b5722f" stroke="#5e3a13" stroke-width="1"/>' +
+        '<path d="M7 -3 C10 -10 11 -15 13 -18" stroke="#b5722f" stroke-width="4.4" fill="none" stroke-linecap="round"/>' +
+        '<ellipse cx="15" cy="-20" rx="5.2" ry="3.5" fill="#b5722f" stroke="#5e3a13" stroke-width="0.9" transform="rotate(18 15 -20)"/>' +
+        '<path d="M13 -23 C12 -28 15 -30 16 -26 M16 -22 C19 -27 22 -25 20 -21" stroke="#5e3a13" stroke-width="1.1" fill="none" stroke-linecap="round"/>' +
+        '<circle cx="17" cy="-20.6" r="0.9" fill="#241a16"/>' +
+        '<path d="M19.5 -19.4 C22 -19 22 -17.8 19.5 -17.6" stroke="#5e3a13" stroke-width="0.9" fill="none"/>' +
+        '<circle cx="-4" cy="-1" r="1.2" fill="#fbeed2"/><circle cx="1" cy="-3" r="1.1" fill="#fbeed2"/><circle cx="5" cy="0" r="1.1" fill="#fbeed2"/>' +
+        '<path d="M-9 6 L-10 15 M-3 7 L-4 15 M4 6 L4 15 M9 4 L9 13" stroke="#5e3a13" stroke-width="1.9" stroke-linecap="round"/>');
+    }
+
+    function cup() {
+      return G(32, 74,
+        '<path d="M-13 -9 L13 -9 L9 6 L-9 6 Z" fill="#b8202a" stroke="#7d141c" stroke-width="1"/>' +
+        '<ellipse cx="0" cy="-9" rx="13" ry="3.2" fill="#d8402f" stroke="#f0c25a" stroke-width="1.1"/>' +
+        '<path d="M-8 6 L-6 12 L6 12 L8 6 Z" fill="#8e1c2e" stroke="#5e1016" stroke-width="0.9"/>' +
+        '<text x="0" y="2.6" text-anchor="middle" font-size="9.5" font-weight="900" fill="#f5d97a" font-family="serif">壽</text>');
+    }
+
+    function paulowniaLeaf(x, y, s, rot) {
+      const inner = '<path d="M0 0 C-12 -4 -16 -14 -10 -18 C-4 -22 0 -14 0 -8 C0 -14 4 -22 10 -18 C16 -14 12 -4 0 0 Z" fill="#2f6b47" stroke="#1c4530" stroke-width="0.6"/>' +
+        '<path d="M0 0 L0 14" stroke="#1c4530" stroke-width="0.9"/>';
+      return '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ') scale(' + s + ')">' + inner + '</g>';
+    }
+
+    function phoenix(cx, cy) {
+      return G(cx, cy,
+        '<path d="M-2 -6 C-12 0 -13 12 -2 15 C9 18 15 9 11 1 C8 -5 1 -8 -2 -6 Z" fill="#c1272d" stroke="#7d141c" stroke-width="0.9"/>' +
+        '<path d="M-1 -7 C-4 -13 -1 -18 3 -19" stroke="#c1272d" stroke-width="4" fill="none" stroke-linecap="round"/>' +
+        '<circle cx="4" cy="-20" r="3.2" fill="#d8402f" stroke="#7d141c" stroke-width="0.7"/>' +
+        '<path d="M4 -23 C2 -28 6 -30 8 -27 M4 -23 C6 -29 11 -28 10 -24" stroke="#e0b64a" stroke-width="1.3" fill="none" stroke-linecap="round"/>' +
+        '<path d="M7 -19.6 L12.4 -18.6 L7 -17.4 Z" fill="#e0b64a"/>' +
+        '<circle cx="4.8" cy="-20.6" r="0.8" fill="#241a16"/>' +
+        '<path d="M-5 -1 C-15 -9 -22 -2 -16 6 C-12 11 -5 9 -3 4 Z" fill="#d8402f" stroke="#7d141c" stroke-width="0.8"/>' +
+        '<path d="M-8 13 C-16 20 -16 30 -8 36" stroke="#e0b64a" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+        '<path d="M-4 15 C-10 24 -8 32 -1 37" stroke="#d8402f" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+        '<path d="M0 15 C2 24 7 28 13 30" stroke="#e0b64a" stroke-width="1.8" fill="none" stroke-linecap="round"/>');
+    }
+
+    function umbrellaman() {
+      return '<g transform="translate(32 58)">' +
+        '<path d="M-4 8 C-6 18 -5 28 -3 34 L9 34 C10 26 10 18 8 8 Z" fill="#2b3a4a" stroke="#15202c" stroke-width="0.8"/>' +
+        '<circle cx="4" cy="3" r="4.6" fill="#f0d9b8" stroke="#3a2a1b" stroke-width="0.7"/>' +
+        '<path d="M-2 -1 L10 -1 L7 -5 L1 -5 Z" fill="#e8dcc0" stroke="#3a2a1b" stroke-width="0.7"/>' +
+        '<path d="M8 12 C13 14 15 20 14 26" stroke="#2b3a4a" stroke-width="2.6" fill="none" stroke-linecap="round"/>' +
+        '<path d="M-22 -8 Q0 -34 22 -8 Z" fill="#b8202a" stroke="#3a1d16" stroke-width="1.1"/>' +
+        '<path d="M-22 -8 L0 -22 M-11 -8 L0 -28 M0 -8 L0 -32 M11 -8 L0 -28 M22 -8 L0 -22" stroke="#e8c27a" stroke-width="0.65"/>' +
+        '<path d="M0 -8 L0 30" stroke="#3a2a1b" stroke-width="2.2"/>' +
+        '<path d="M-22 -8 Q-22 -3 -16 -3 Q-11 -3 -11 -8 M11 -8 Q11 -3 16 -3 Q21 -3 22 -8" fill="#a81c24"/>' +
+        '</g>';
+    }
+
+    function swallow(cx, cy) {
+      return G(cx, cy,
+        '<path d="M-3 0 C-12 -7 -22 -6 -27 1 C-18 1 -10 4 -3 6 Z" fill="#1e2a38"/>' +
+        '<ellipse cx="0" cy="1" rx="10" ry="5.4" fill="#26384a" stroke="#101a24" stroke-width="0.8"/>' +
+        '<ellipse cx="1" cy="3.4" rx="6.5" ry="2.6" fill="#f4efe2"/>' +
+        '<circle cx="9" cy="-2" r="3.6" fill="#2f4358" stroke="#101a24" stroke-width="0.7"/>' +
+        '<circle cx="10" cy="-2.6" r="0.9" fill="#0b1016"/>' +
+        '<path d="M12 -2.2 L16.4 -1.2 L12 0.4 Z" fill="#3a2a1b"/>' +
+        '<path d="M-6 -2 C0 -8 7 -7 10 -3" stroke="#101a24" stroke-width="1.6" fill="none"/>' +
+        '<path d="M0 6 L-4 12 M0 6 L5 11" stroke="#101a24" stroke-width="1.2" stroke-linecap="round"/>');
+    }
+
+    /* ---------------- month motifs ---------------- */
+    function m1(card) {
+      const bright = card.category === 'bright';
+      let s = '';
+      if (bright) s += sunDisc(27, 23, 11);
+      s += '<path d="M7 92 C10 76 16 68 14 54 C13 46 18 40 25 37" stroke="#3a2a1b" stroke-width="4.4" fill="none" stroke-linecap="round"/>' +
+        '<path d="M24 38 C32 29 42 27 53 28" stroke="#3a2a1b" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
+        '<path d="M15 56 C21 50 27 49 34 52" stroke="#3a2a1b" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+        fan(25, 37, 10, -110, 8, 96, '#1f6b3c', 1.5) +
+        fan(40, 28, 10, -78, 8, 96, '#1f6b3c', 1.5) +
+        fan(53, 28, 9, -40, 8, 92, '#1f6b3c', 1.4) +
+        fan(33, 52, 8, -135, 7, 84, '#2b7a45', 1.3) +
+        '<path d="M6 92 Q14 86 24 88 Q36 84 46 88" stroke="#1f6b3c" stroke-width="3" fill="none" stroke-linecap="round"/>';
+      if (bright) s += crane();
+      return s;
+    }
+
+    function m2(card) {
+      let s = '<path d="M5 90 C14 74 19 60 32 48 C41 40 50 32 60 27" stroke="#4a3020" stroke-width="3.8" fill="none" stroke-linecap="round"/>' +
+        '<path d="M30 50 C26 44 24 38 25 32" stroke="#4a3020" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+        '<path d="M44 36 C48 32 52 30 58 30" stroke="#4a3020" stroke-width="2.2" fill="none" stroke-linecap="round"/>';
+      const pts = [[25, 32, 5.6, -15], [34, 44, 5, 10], [43, 34, 5.8, 25], [52, 29, 5, -10], [48, 45, 4.6, 0], [30, 58, 4.4, 20]];
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        s += blossom(p[0], p[1], p[2], '#f7b3c4', '#c85472', p[3]) + stamens(p[0], p[1], p[2]);
+      }
+      if (card.category === 'animal') s += warbler(37, 73);
+      return s;
+    }
+
+    function m3(card) {
+      const bright = card.category === 'bright';
+      let s = '';
+      if (bright) {
+        s += '<path d="M4 92 L4 58 Q11 62 18 58 Q25 62 32 58 Q39 62 46 58 Q53 62 60 58 L60 92 Z" fill="#b8202a"/>' +
+          '<rect x="4" y="72" width="56" height="5.4" fill="#fdf9ef"/>' +
+          '<rect x="4" y="77.4" width="56" height="5" fill="#241c14"/>' +
+          '<path d="M4 58 Q11 62 18 58 Q25 62 32 58 Q39 62 46 58 Q53 62 60 58" stroke="#f0c25a" stroke-width="2" fill="none"/>' +
+          '<circle cx="12" cy="64" r="2" fill="#f0c25a"/><circle cx="32" cy="64" r="2" fill="#f0c25a"/><circle cx="52" cy="64" r="2" fill="#f0c25a"/>';
+        const bl = [[16, 26, 6], [33, 18, 6.6], [48, 27, 5.6], [24, 40, 5.4], [42, 44, 5]];
+        for (let i = 0; i < bl.length; i++) {
+          s += blossom(bl[i][0], bl[i][1], bl[i][2], '#f6a8bd', '#cf6b8a', i * 25) + stamens(bl[i][0], bl[i][1], bl[i][2]);
+        }
+        s += '<path d="M4 34 C16 26 30 22 52 20" stroke="#5c3a21" stroke-width="2.4" fill="none"/>';
+      } else {
+        s += '<path d="M4 44 C18 34 34 26 60 20" stroke="#5c3a21" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+          '<path d="M20 37 C22 30 24 26 27 22" stroke="#5c3a21" stroke-width="2" fill="none" stroke-linecap="round"/>';
+        const bl = [[14, 42, 6], [26, 32, 6.6], [38, 26, 6], [50, 21, 5.4], [33, 44, 5.6], [46, 38, 5]];
+        for (let i = 0; i < bl.length; i++) {
+          s += blossom(bl[i][0], bl[i][1], bl[i][2], '#f6a8bd', '#cf6b8a', i * 30) + stamens(bl[i][0], bl[i][1], bl[i][2]);
+        }
+        s += fan(30, 60, 8, -100, 7, 90, '#2f6b3d', 1.3);
+      }
+      return s;
+    }
+
+    function m4(card) {
+      let s = '<path d="M2 22 C14 12 30 10 44 16 C52 20 58 24 62 21" stroke="#2f2a24" stroke-width="3.6" fill="none" stroke-linecap="round"/>';
+      const cl = [[10, 24, 15], [21, 23, 20], [33, 23, 13], [45, 20, 17], [56, 22, 10]];
+      for (let i = 0; i < cl.length; i++) s += wisteria(cl[i][0], cl[i][1], cl[i][2]);
+      if (card.category === 'animal') {
+        s += '<path d="M47 12 A6.4 6.4 0 1 0 55.6 20.6 A5 5 0 1 1 47 12 Z" fill="#e9c766"/>' + cuckoo(33, 68);
+      } else {
+        s += '<path d="M4 78 Q16 70 28 78 Q40 86 56 76" stroke="#2f6b3d" stroke-width="2.6" fill="none"/>';
+      }
+      return s;
+    }
+
+    function m5(card) {
+      let s = '<path d="M10 90 C12 66 15 44 12 20" stroke="#2f6b3d" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<path d="M20 90 C21 68 22 48 20 24" stroke="#3d7f4c" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<path d="M30 90 C29 64 32 42 34 22" stroke="#2f6b3d" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<path d="M42 90 C42 66 44 46 46 26" stroke="#3d7f4c" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<path d="M52 90 C52 70 54 52 57 34" stroke="#2f6b3d" stroke-width="2.6" fill="none" stroke-linecap="round"/>' +
+        iris(15, 27) + iris(35, 31) + iris(49, 41) +
+        '<path d="M4 84 Q16 80 28 84 Q40 88 52 84 Q57 82 60 84" stroke="#8fb8c8" stroke-width="1.4" fill="none"/>';
+      if (card.category === 'animal') s += bridge();
+      return s;
+    }
+
+    function m6(card) {
+      let s = '<ellipse cx="17" cy="78" rx="10" ry="5.4" fill="#2f6b3d" stroke="#1c4530" stroke-width="0.6" transform="rotate(-28 17 78)"/>' +
+        '<ellipse cx="47" cy="78" rx="10" ry="5.4" fill="#2f6b3d" stroke="#1c4530" stroke-width="0.6" transform="rotate(28 47 78)"/>' +
+        '<path d="M32 92 L32 72" stroke="#245231" stroke-width="3" stroke-linecap="round"/>' +
+        petalsRing(32, 62, 9.5, 8.6, 6, 7, '#c8304a', '#8e1c2e', 0) +
+        petalsRing(32, 62, 6, 6.4, 4.8, 6, '#e0556a', '#9e2338', 26) +
+        '<circle cx="32" cy="62" r="4.2" fill="#f5c33f" stroke="#b8860b" stroke-width="0.6"/>' +
+        '<circle cx="30" cy="60.6" r="0.9" fill="#b8860b"/><circle cx="34" cy="61" r="0.9" fill="#b8860b"/><circle cx="32" cy="64" r="0.9" fill="#b8860b"/>';
+      if (card.category === 'animal') s += '<g transform="translate(32 30) scale(1.08)">' + butterfly(0, 0) + '</g>';
+      return s;
+    }
+
+    function m7(card) {
+      let s = '<path d="M6 88 C16 62 24 48 34 40 M24 90 C40 66 48 52 58 44" stroke="#8a5a2b" stroke-width="2.6" fill="none" stroke-linecap="round"/>';
+      const cl = [[14, 66], [22, 54], [30, 44], [38, 52], [48, 46], [54, 58], [36, 70], [46, 66]];
+      for (let i = 0; i < cl.length; i++) s += cloverFlower(cl[i][0], cl[i][1]);
+      s += '<ellipse cx="11" cy="80" rx="5.4" ry="3" fill="#2f6b3d" transform="rotate(-32 11 80)"/>' +
+        '<ellipse cx="45" cy="78" rx="5.4" ry="3" fill="#2f6b3d" transform="rotate(22 45 78)"/>';
+      if (card.category === 'animal') s += boar(30, 76);
+      return s;
+    }
+
+    function m8(card) {
+      const bright = card.category === 'bright';
+      const animal = card.category === 'animal';
+      let s = '';
+      if (bright) {
+        s += '<rect x="3" y="3" width="58" height="90" rx="3" fill="#bf2f2c"/>' +
+          '<circle cx="32" cy="33" r="17" fill="#f7ecd2" stroke="#e3cf9f" stroke-width="0.8"/>' +
+          '<circle cx="26" cy="29" r="3.4" fill="#eadcbb" opacity="0.85"/><circle cx="37" cy="39" r="2.6" fill="#eadcbb" opacity="0.7"/>' +
+          '<circle cx="34" cy="26" r="2" fill="#eadcbb" opacity="0.6"/>' + mountain('#2a1c1c', true);
+      } else if (animal) {
+        s += '<rect x="3" y="3" width="58" height="90" rx="3" fill="#f6e2bd"/>' +
+          goose(16, 24, 1) + goose(30, 16, 1.15) + goose(44, 25, 0.95) + goose(54, 36, 0.8) + goose(22, 36, 0.8) +
+          mountain('#2a1c1c', false);
+      } else {
+        s += '<rect x="3" y="3" width="58" height="90" rx="3" fill="#f6ecd6"/>' + mountain('#2a1c1c', false);
+      }
+      return s;
+    }
+
+    function m9(card) {
+      const guk = card.isGukjin;
+      const cy = guk ? 34 : 56;
+      let s = '';
+      if (guk) {
+        s += '<path d="M32 60 L32 44" stroke="#2f6b3d" stroke-width="2.6" stroke-linecap="round"/>' +
+          '<path d="M32 54 C26 52 23 47 24 43 C29 46 32 50 32 54 Z" fill="#2f6b3d"/>' +
+          '<path d="M32 50 C38 48 41 43 40 39 C35 42 32 46 32 50 Z" fill="#2f6b3d"/>';
+      } else {
+        s += '<path d="M20 88 C22 76 26 70 32 68 C38 70 42 76 44 88" stroke="#2f6b3d" stroke-width="3" fill="none" stroke-linecap="round"/>';
+      }
+      s += petalsRing(32, cy, 11, 3.3, 7, 12, '#d9a227', '#a5761a', 0) +
+        petalsRing(32, cy, 7, 2.7, 5.4, 10, '#eec44f', '#b5891f', 15) +
+        '<circle cx="32" cy="' + cy + '" r="3.5" fill="#f8e6a6" stroke="#c79a2e" stroke-width="0.6"/>';
+      if (guk) s += cup();
+      return s;
+    }
+
+    function m10(card) {
+      let s = '<path d="M4 30 C14 40 22 50 30 58" stroke="#6b4520" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<path d="M30 58 C40 52 50 50 60 52" stroke="#6b4520" stroke-width="2.6" fill="none" stroke-linecap="round"/>' +
+        maple(16, 26, 1.15, -20, '#c1272d') + maple(37, 44, 1, 15, '#d2521f') +
+        maple(52, 30, 0.85, -30, '#c1272d') + maple(25, 52, 0.7, 40, '#d2521f') +
+        maple(57, 60, 0.72, 10, '#b22222');
+      if (card.category === 'animal') s += deer(30, 76);
+      return s;
+    }
+
+    function m11(card) {
+      const bright = card.category === 'bright';
+      let s = '';
+      if (bright) {
+        s += '<rect x="3" y="3" width="58" height="90" rx="3" fill="#fbf3dd"/>' +
+          paulowniaLeaf(12, 26, 1.1, -25) + paulowniaLeaf(52, 22, 1, 25) +
+          '<circle cx="9" cy="14" r="3.4" fill="#7b4da6"/><circle cx="14" cy="9" r="2.6" fill="#8d5bb8"/>' +
+          '<circle cx="55" cy="10" r="3.2" fill="#7b4da6"/><circle cx="50" cy="14" r="2.4" fill="#8d5bb8"/>' +
+          '<path d="M3 92 Q14 82 26 88 Q38 80 49 88 Q56 84 61 88 L61 92 Z" fill="#2f6b47"/>' +
+          phoenix(32, 56);
+      } else if (card.subType === 'double') {
+        s += paulowniaLeaf(32, 26, 1.2, 0) +
+          '<circle cx="18" cy="18" r="3.6" fill="#7b4da6"/><circle cx="46" cy="18" r="3.6" fill="#7b4da6"/><circle cx="32" cy="14" r="3" fill="#8d5bb8"/>';
+      } else {
+        s += paulowniaLeaf(36, 34, 1.15, 10) +
+          '<circle cx="22" cy="22" r="3.4" fill="#7b4da6"/><circle cx="44" cy="18" r="2.8" fill="#8d5bb8"/>';
+      }
+      return s;
+    }
+
+    function m12(card) {
+      let s = '';
+      for (let i = 0; i < 18; i++) {
+        const x = 6 + (i * 13) % 54;
+        const y = 6 + (i * 29) % 84;
+        s += '<line x1="' + x + '" y1="' + y + '" x2="' + (x - 3.4).toFixed(1) + '" y2="' + (y + 7).toFixed(1) +
+          '" stroke="#7a93a8" stroke-width="1" stroke-linecap="round" opacity="0.6"/>';
+      }
+      if (card.category === 'bright') s += umbrellaman();
+      else if (card.category === 'animal') s += swallow(34, 52);
+      else s += '<path d="M6 82 Q18 76 28 84 Q40 90 54 80" stroke="#2f6b3d" stroke-width="2.6" fill="none"/>';
+      return s;
+    }
+
+    function motif(card) {
+      switch (card.month) {
+        case 1: return m1(card);
+        case 2: return m2(card);
+        case 3: return m3(card);
+        case 4: return m4(card);
+        case 5: return m5(card);
+        case 6: return m6(card);
+        case 7: return m7(card);
+        case 8: return m8(card);
+        case 9: return m9(card);
+        case 10: return m10(card);
+        case 11: return m11(card);
+        case 12: return m12(card);
+        default: return '';
+      }
+    }
+
+    /* ---------------- overlays ---------------- */
+    function ribbon(card) {
+      if (card.category !== 'ribbon') return '';
+      let fill = '#4a5570', accent = '#2e3648', label = '띠';
+      if (card.subType === 'hong') { fill = '#c1272d'; accent = '#7d141c'; label = '홍'; }
+      else if (card.subType === 'cheong') { fill = '#2a5cae'; accent = '#1a3a72'; label = '청'; }
+      else if (card.subType === 'cho') { fill = '#6d3f9e'; accent = '#452470'; label = '초'; }
+      return '<g transform="rotate(-12 32 52)">' +
+        '<rect x="-6" y="38" width="76" height="19.5" fill="' + fill + '" stroke="' + accent + '" stroke-width="0.9"/>' +
+        '<rect x="-6" y="40.5" width="76" height="1.8" fill="#ffffff" opacity="0.32"/>' +
+        '<rect x="-6" y="53.6" width="76" height="1.5" fill="#000000" opacity="0.2"/>' +
+        '<text x="26" y="52" text-anchor="middle" font-size="9.2" font-weight="900" fill="#ffffff" opacity="0.95">' + label + '</text>' +
+        bandAccent(card) +
+        '</g>';
+    }
+
+    function bandAccent(card) {
+      switch (card.month) {
+        case 1: return fan(50, 50, 6, -100, 6, 80, '#f7f2e4', 1.1);
+        case 2: return blossom(50, 47, 5.4, '#f7b3c4', '#c85472', 10) + stamens(50, 47, 4);
+        case 3: return blossom(50, 47, 5.6, '#f6a8bd', '#cf6b8a', 20) + stamens(50, 47, 4.2);
+        case 4: return wisteria(50, 40, 10);
+        case 5: return iris(50, 52);
+        case 6: return '<circle cx="50" cy="47" r="4.4" fill="#f6d06a"/><circle cx="50" cy="47" r="2.2" fill="#c8304a"/>';
+        case 7: return cloverFlower(50, 47);
+        case 9: return '<circle cx="50" cy="47" r="4.6" fill="#f1d05c"/><circle cx="50" cy="47" r="2.2" fill="#b8860b"/>';
+        case 10: return maple(50, 46, 0.62, 0, '#f3d08a');
+        case 12: return '<path d="M44 44 L52 44 L48 52 Z" fill="#f7f2e4" opacity="0.9"/>';
+        default: return '';
+      }
+    }
+
+    function piMarks(card) {
+      if (card.category !== 'junk') return '';
+      if (card.subType === 'double' || (card.piValue || 1) >= 2) {
+        return piGlyph(21, 32, 1.12, -14) + piGlyph(42, 58, 1.12, 12);
+      }
+      return piGlyph(45, 68, 1.02, 8);
+    }
+
+    function monthTab(month) {
+      if (!(month >= 1)) return '';
+      const two = month >= 10;
+      return '<rect x="4.4" y="4.4" width="14.2" height="10.4" rx="1.6" fill="#fdf9ef" stroke="#b8a37e" stroke-width="0.6"/>' +
+        '<text x="11.5" y="12.1" text-anchor="middle" font-size="' + (two ? 7.1 : 8.2) +
+        '" font-weight="900" fill="#7d1a15" font-family="Georgia, Times New Roman, serif">' + month + '</text>';
+    }
+
+    function badge(card) {
       if (card.category === 'bright') {
         const lbl = card.subType === 'bi' ? '비光' : '光';
-        return '<rect x="37" y="4" width="23" height="15" rx="3" fill="#f59e0b" stroke="#78350f" stroke-width="1"/>' +
-          '<text x="48.5" y="14.5" text-anchor="middle" font-size="9.5" font-weight="900" fill="#1c1917">' + lbl + '</text>';
+        return '<rect x="40" y="4.4" width="19.6" height="11" rx="1.6" fill="#b8202a" stroke="#f0c25a" stroke-width="0.8"/>' +
+          '<text x="49.8" y="12.6" text-anchor="middle" font-size="' + (card.subType === 'bi' ? 6.8 : 7.8) +
+          '" font-weight="900" fill="#ffe9a8">' + lbl + '</text>';
       }
       if (card.isGukjin) {
-        return '<rect x="34" y="4" width="26" height="15" rx="3" fill="#059669" stroke="#fbbf24" stroke-width="1.2"/>' +
-          '<text x="47" y="14.5" text-anchor="middle" font-size="8.5" font-weight="900" fill="#fef08a">열/×2</text>';
+        return '<rect x="38.4" y="4.4" width="21.2" height="11" rx="1.6" fill="#1f6b3d" stroke="#f0c25a" stroke-width="0.8"/>' +
+          '<text x="49" y="12.6" text-anchor="middle" font-size="7.2" font-weight="900" fill="#ffe9a8">국진</text>';
       }
       if (card.category === 'animal') {
-        return '<rect x="41" y="4" width="19" height="15" rx="3" fill="#059669"/>' +
-          '<text x="50.5" y="14.5" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">열</text>';
+        return '<rect x="46.6" y="4.4" width="13" height="10.4" rx="1.4" fill="#fdf9ef" stroke="#7fa98f" stroke-width="0.5"/>' +
+          '<text x="53.1" y="12.1" text-anchor="middle" font-size="7.2" font-weight="900" fill="#2b6b4a">열</text>';
       }
       if (card.category === 'ribbon') {
-        return '<rect x="41" y="4" width="19" height="15" rx="3" fill="#be123c"/>' +
-          '<text x="50.5" y="14.5" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">띠</text>';
+        return '<rect x="46.6" y="4.4" width="13" height="10.4" rx="1.4" fill="#fdf9ef" stroke="#c08f88" stroke-width="0.5"/>' +
+          '<text x="53.1" y="12.1" text-anchor="middle" font-size="7.2" font-weight="900" fill="#8e2c28">띠</text>';
       }
-      if (card.piValue >= 2) {
-        return '<rect x="35" y="76" width="25" height="15" rx="3" fill="#d97706" stroke="#fef08a" stroke-width="1"/>' +
-          '<text x="47.5" y="86.5" text-anchor="middle" font-size="9" font-weight="900" fill="#fff">×' + card.piValue + '</text>';
+      if ((card.piValue || 0) >= 2) {
+        return '<rect x="36.4" y="78.4" width="23.2" height="11.6" rx="1.6" fill="#cf4a32" stroke="#fbf3dd" stroke-width="0.8"/>' +
+          '<text x="48" y="87.1" text-anchor="middle" font-size="7.8" font-weight="900" fill="#fff8ec">×' + card.piValue + '</text>';
       }
       return '';
     }
@@ -4167,36 +4511,37 @@
       const key = theme + ':' + (card.isEmptyBomb ? 'pass' : card.id);
       if (cache[key]) return cache[key];
 
-      const palette = theme === 'jade'
-        ? { face: '#eef7f4', brightFace: '#ecfdf5', frame: '#0f766e', brightFrame: '#059669' }
-        : theme === 'royal'
-        ? { face: '#fcf7ea', brightFace: '#fef9c3', frame: '#18181b', brightFrame: '#d97706' }
-        : { face: '#fbf6ec', brightFace: '#fffbeb', frame: '#b91c1c', brightFrame: '#d97706' };
-
+      const t = THEMES[theme] || THEMES.classic;
       let svg;
+
       if (card.isEmptyBomb) {
         svg = '<svg viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg">' +
-          '<rect x="1.5" y="1.5" width="61" height="93" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 3"/>' +
-          '<text x="32" y="44" text-anchor="middle" font-size="11" font-weight="800" fill="#fbbf24">폭탄</text>' +
-          '<text x="32" y="59" text-anchor="middle" font-size="10" font-weight="700" fill="#cbd5e1">패스</text>' +
+          '<rect x="1.5" y="1.5" width="61" height="93" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="4 3"/>' +
+          '<text x="32" y="46" text-anchor="middle" font-size="11" font-weight="800" fill="#fbbf24">폭탄</text>' +
+          '<text x="32" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#cbd5e1">패스</text>' +
           '</svg>';
       } else if (card.isBonus) {
         svg = '<svg viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg">' +
-          '<rect x="1.5" y="1.5" width="61" height="93" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>' +
-          '<circle cx="32" cy="44" r="18" fill="#f59e0b"/>' +
-          '<text x="32" y="50" text-anchor="middle" font-size="19" font-weight="900" fill="#fff">★</text>' +
-          '<text x="32" y="78" text-anchor="middle" font-size="10.5" font-weight="900" fill="#92400e">보너스 ×' + card.piValue + '</text>' +
+          '<rect x="1" y="1" width="62" height="94" rx="4" fill="' + t.face + '" stroke="' + t.edge + '" stroke-width="1"/>' +
+          '<rect x="5" y="5" width="54" height="86" rx="2" fill="none" stroke="#e0b64a" stroke-width="1"/>' +
+          '<circle cx="32" cy="40" r="17" fill="#e0b64a"/><circle cx="32" cy="40" r="13" fill="#c99a2e"/>' +
+          '<text x="32" y="47" text-anchor="middle" font-size="19" font-weight="900" fill="#fff8ec">★</text>' +
+          '<text x="32" y="74" text-anchor="middle" font-size="9" font-weight="900" fill="#7d141c">보너스 패</text>' +
+          '<text x="32" y="85" text-anchor="middle" font-size="10.5" font-weight="900" fill="#b8202a">×' + card.piValue + '</text>' +
           '</svg>';
       } else {
-        const bg = card.category === 'bright' ? palette.brightFace : palette.face;
-        const frame = card.category === 'bright' ? palette.brightFrame : palette.frame;
+        const bright = card.category === 'bright';
         svg = '<svg viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg">' +
-          '<rect x="1.5" y="1.5" width="61" height="93" rx="5.5" fill="' + bg + '" stroke="' + frame + '" stroke-width="2"/>' +
-          monthMotif(card.month, card) +
-          ribbonOverlay(card) +
-          '<rect x="4" y="4" width="18" height="15" rx="3" fill="#1c1917" fill-opacity="0.86"/>' +
-          '<text x="13" y="14.5" text-anchor="middle" font-size="10.5" font-weight="900" fill="#fff">' + card.month + '</text>' +
-          categoryBadge(card) +
+          '<rect x="0" y="0" width="64" height="96" fill="' + t.face + '"/>' +
+          grain(t, card.month) +
+          motif(card) +
+          ribbon(card) +
+          piMarks(card) +
+          '<rect x="3" y="3" width="58" height="90" rx="2.4" fill="none" stroke="' + t.edge + '" stroke-width="0.9"/>' +
+          '<rect x="1" y="1" width="62" height="94" rx="4" fill="none" stroke="' + (bright ? t.brightFrame : t.frame) +
+          '" stroke-width="' + (bright ? 2 : 1.1) + '" stroke-opacity="' + (bright ? 0.9 : 0.38) + '"/>' +
+          monthTab(card.month) +
+          badge(card) +
           '</svg>';
       }
       cache[key] = svg;
@@ -4207,16 +4552,30 @@
       const theme = forceTheme || getActiveTheme();
       const key = '__back:' + theme;
       if (cache[key]) return cache[key];
-      const back = theme === 'jade'
-        ? { bg: '#0f766e', border: '#a7f3d0', inner: '#6ee7b7', ring: '#fef08a' }
+      const pal = theme === 'jade'
+        ? { bg: '#1f6b58', line: '#bfe6d6', deep: '#0f3f34', seal: '#f0e6c8' }
         : theme === 'royal'
-        ? { bg: '#18181b', border: '#fbbf24', inner: '#f59e0b', ring: '#fde047' }
-        : { bg: '#991b1b', border: '#f5d0a9', inner: '#fca5a5', ring: '#fde68a' };
+        ? { bg: '#1b1714', line: '#d9b45c', deep: '#0d0b09', seal: '#f3dfa8' }
+        : { bg: '#a8241f', line: '#f0d3a2', deep: '#6d1410', seal: '#f7e7c6' };
+
+      let arcs = '';
+      for (let row = 0; row < 7; row++) {
+        for (let col = 0; col < 6; col++) {
+          const x = 2 + col * 12 + (row % 2) * 6;
+          const y = 4 + row * 13;
+          arcs += '<path d="M' + x + ' ' + (y + 5) + ' a6 6 0 0 1 12 0" fill="none" stroke="' + pal.line +
+            '" stroke-width="0.55" stroke-opacity="0.3"/>';
+        }
+      }
+
       cache[key] = '<svg viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg">' +
-        '<rect x="1.5" y="1.5" width="61" height="93" rx="5.5" fill="' + back.bg + '" stroke="' + back.border + '" stroke-width="2"/>' +
-        '<rect x="7" y="7" width="50" height="82" rx="3" fill="none" stroke="' + back.inner + '" stroke-width="1" stroke-opacity="0.55"/>' +
-        '<circle cx="32" cy="48" r="11" fill="none" stroke="' + back.ring + '" stroke-width="1.6"/>' +
-        '<circle cx="32" cy="48" r="4" fill="' + back.ring + '"/>' +
+        '<rect x="0" y="0" width="64" height="96" rx="4" fill="' + pal.bg + '"/>' +
+        arcs +
+        '<rect x="3" y="3" width="58" height="90" rx="2.4" fill="none" stroke="' + pal.line + '" stroke-width="1" stroke-opacity="0.75"/>' +
+        '<rect x="6.5" y="6.5" width="51" height="83" rx="1.6" fill="none" stroke="' + pal.line + '" stroke-width="0.55" stroke-opacity="0.5"/>' +
+        '<circle cx="32" cy="48" r="12" fill="' + pal.bg + '" stroke="' + pal.seal + '" stroke-width="1.1"/>' +
+        '<circle cx="32" cy="48" r="7.5" fill="none" stroke="' + pal.seal + '" stroke-width="0.7" stroke-opacity="0.8"/>' +
+        '<path d="M32 40 L39 48 L32 56 L25 48 Z" fill="' + pal.seal + '" fill-opacity="0.85"/>' +
         '</svg>';
       return cache[key];
     }
@@ -5685,8 +6044,8 @@
           { playerCount: is3P ? 3 : 2, recordLog: false },
           9000 + i,
           is3P
-            ? [{ characterId: 'gildong' }, { characterId: 'doryeong' }, { characterId: 'cheolsu' }]
-            : [{ characterId: 'gildong' }, { characterId: 'younghee' }]
+            ? [{ characterId: 'agwi' }, { characterId: 'jjakkwi' }, { characterId: 'gwangryeol' }]
+            : [{ characterId: 'agwi' }, { characterId: 'jungmadam' }]
         );
         const st = res.state;
         assert(st.phase === 'GAME_OVER', '판 ' + i + ' 종료');
@@ -5750,7 +6109,7 @@
   const UI = (() => {
     let lobbyMode = 2;
     let lobbyStageId = 0;
-    let lobbyOppId = 'cheolsu';
+    let lobbyOppId = 'gwangryeol';
 
     let match = null;
     let selectedCardId = null;
@@ -5868,7 +6227,7 @@
       for (const b of document.querySelectorAll('#modeSeg .seg-btn')) {
         b.classList.toggle('active', Number(b.dataset.mode) === lobbyMode);
       }
-      document.getElementById('opp2Note').textContent = lobbyMode === 3 ? '(3인: 이도령 자동 참전)' : '';
+      document.getElementById('opp2Note').textContent = lobbyMode === 3 ? '(3인: 짝귀 자동 참전)' : '';
 
       // Career Stages
       const careerList = document.getElementById('careerList');
@@ -7017,8 +7376,16 @@
       const rate = st.totalGames > 0 ? ((st.wins / st.totalGames) * 100).toFixed(1) : '0.0';
       let charRows = '';
       for (const ch of AI.CHARACTERS) {
-        const rec = st.byCharacter[ch.id] || { wins: 0, losses: 0, nagari: 0 };
-        charRows += '<tr><td>' + ch.avatar + ' ' + ch.name + '</td><td class="r">' + rec.wins + '승 ' + rec.losses + '패 ' + (rec.nagari || 0) + '무</td></tr>';
+        const legacyKeys = Object.keys(AI.LEGACY_IDS).filter(k => AI.LEGACY_IDS[k] === ch.id);
+        const rec = { wins: 0, losses: 0, nagari: 0 };
+        for (const key of [ch.id].concat(legacyKeys)) {
+          const r = st.byCharacter[key];
+          if (!r) continue;
+          rec.wins += r.wins || 0;
+          rec.losses += r.losses || 0;
+          rec.nagari += r.nagari || 0;
+        }
+        charRows += '<tr><td>' + ch.avatar + ' ' + ch.name + '</td><td class="r">' + rec.wins + '승 ' + rec.losses + '패 ' + rec.nagari + '무</td></tr>';
       }
       const box = showModal(
         '<h3>내 전적 · 족보 통계</h3>' +
@@ -7121,7 +7488,11 @@
       const savedMode = Store.get('lobbyMode', null);
       lobbyMode = (savedMode != null ? Number(savedMode) : Store.getSettings().defaultMode) === 3 ? 3 : 2;
       lobbyStageId = Store.getCareer().selectedStage || 0;
-      lobbyOppId = Store.get('lobbyOppId', 'cheolsu');
+      lobbyOppId = Store.get('lobbyOppId', 'gwangryeol');
+      if (AI.LEGACY_IDS[lobbyOppId]) {
+        lobbyOppId = AI.LEGACY_IDS[lobbyOppId];
+        Store.set('lobbyOppId', lobbyOppId);
+      }
 
       document.getElementById('modeSeg').addEventListener('click', (e) => {
         const b = e.target.closest('[data-mode]');
