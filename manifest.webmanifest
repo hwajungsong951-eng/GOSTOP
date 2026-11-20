@@ -1,0 +1,25 @@
+{
+  "name": "맞고",
+  "short_name": "맞고",
+  "description": "오프라인으로 즐기는 2인 맞고 · 3인 고스톱 전통 화투 게임",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d3b26",
+  "theme_color": "#0d3b26",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230d3b26'/%3E%3Crect x='36' y='22' width='120' height='148' rx='14' fill='%23fbf6ec' stroke='%23b91c1c' stroke-width='8'/%3E%3Ccircle cx='124' cy='58' r='22' fill='%23ef4444'/%3E%3Cpath d='M44 150 Q86 116 148 144 L148 162 L44 162 Z' fill='%2314532d'/%3E%3Crect x='46' y='32' width='34' height='28' rx='6' fill='%231c1917'/%3E%3Ctext x='63' y='52' text-anchor='middle' font-size='20' font-weight='900' fill='%23fff'%3E1%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%230d3b26'/%3E%3Crect x='96' y='56' width='320' height='400' rx='36' fill='%23fbf6ec' stroke='%23b91c1c' stroke-width='20'/%3E%3Ccircle cx='332' cy='154' r='58' fill='%23ef4444'/%3E%3Cpath d='M116 402 Q230 310 396 386 L396 436 L116 436 Z' fill='%2314532d'/%3E%3Crect x='122' y='84' width='88' height='74' rx='14' fill='%231c1917'/%3E%3Ctext x='166' y='138' text-anchor='middle' font-size='54' font-weight='900' fill='%23fff'%3E1%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
