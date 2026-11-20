@@ -841,6 +841,62 @@
       padding: 2px 0;
     }
 
+    /* ================= 캐릭터 대사 편집 ================= */
+    .dlg-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 6px 0 8px;
+    }
+    .dlg-tab {
+      flex: 1 1 auto;
+      padding: 5px 7px;
+      font-size: 11.5px;
+      font-weight: 800;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .dlg-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
+    .dlg-pane { display: none; }
+    .dlg-pane.active { display: block; }
+    .dlg-field { margin-bottom: 7px; }
+    .dlg-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 3px;
+    }
+    .dlg-field textarea {
+      width: 100%;
+      min-height: 54px;
+      resize: vertical;
+      background: #0a2619;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 6px 8px;
+      font-size: 12px;
+      font-family: var(--sans);
+      line-height: 1.4;
+      box-sizing: border-box;
+    }
+    .dlg-field textarea::placeholder { color: #8fae9f; }
+    .dlg-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 2px 0 8px;
+      line-height: 1.45;
+    }
+
     /* ================= TEST VIEW (?test=1) ================= */
     #testView {
       flex: 1;
@@ -1287,6 +1343,31 @@
       return set('cosmetics', cos);
     }
 
+    // 캐릭터 대사 직접 편집 (사용자 입력)
+    function getCustomLines() {
+      const v = get('customLines', null);
+      return v && typeof v === 'object' ? v : {};
+    }
+    function saveCustomLines(lines) {
+      const out = {};
+      if (lines && typeof lines === 'object') {
+        for (const cid of Object.keys(lines)) {
+          const bySit = lines[cid];
+          if (!bySit || typeof bySit !== 'object') continue;
+          const cleaned = {};
+          for (const sit of Object.keys(bySit)) {
+            const arr = bySit[sit];
+            if (!Array.isArray(arr)) continue;
+            const lines2 = arr.map(t => String(t).trim()).filter(t => t.length > 0);
+            if (lines2.length) cleaned[sit] = lines2;
+          }
+          if (Object.keys(cleaned).length) out[cid] = cleaned;
+        }
+      }
+      set('customLines', out);
+      return out;
+    }
+
     function getStats() {
       const cur = get('stats', {}) || {};
       const base = defaultStats();
@@ -1540,6 +1621,8 @@
       selectCareerStage,
       getCosmetics,
       saveCosmetics,
+      getCustomLines,
+      saveCustomLines,
       getStats,
       canClaimAttendance,
       claimAttendance,
@@ -3226,9 +3309,19 @@
       return CHARACTERS[4];
     }
 
+    function getLinesFor(ch, situation) {
+      try {
+        const custom = Store.getCustomLines();
+        const bySit = custom && custom[ch.id];
+        const arr = bySit && bySit[situation];
+        if (Array.isArray(arr) && arr.length > 0) return arr;
+      } catch (_) {}
+      return (ch.lines && ch.lines[situation]) || ['...'];
+    }
+
     function getDialogue(characterId, situation, rngState) {
       const ch = getCharacter(characterId);
-      const pool = (ch.lines && ch.lines[situation]) || ['...'];
+      const pool = getLinesFor(ch, situation);
       const r = Engine.nextRand(rngState != null ? rngState : 1);
       const idx = Math.floor(r.value * pool.length);
       return { text: pool[idx], rngState: r.rngState, character: ch };
@@ -4018,8 +4111,19 @@
         '</g>';
     }
 
-    function sunDisc(cx, cy, r) {
-      return '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r + 2.4) + '" fill="#eab98c" opacity="0.45"/>' +
+    function sunDisc(cx, cy, r, rays) {
+      let s = '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r + 2.6) + '" fill="#eab98c" opacity="0.4"/>';
+      if (rays) {
+        for (let i = 0; i < 14; i++) {
+          const a = (i * 360 / 14) * Math.PI / 180;
+          const r1 = r + 2.4;
+          const r2 = r + (i % 2 ? 3.6 : 5.4);
+          s += '<line x1="' + (cx + Math.cos(a) * r1).toFixed(1) + '" y1="' + (cy + Math.sin(a) * r1).toFixed(1) +
+            '" x2="' + (cx + Math.cos(a) * r2).toFixed(1) + '" y2="' + (cy + Math.sin(a) * r2).toFixed(1) +
+            '" stroke="#d2402f" stroke-width="0.9" stroke-linecap="round" opacity="0.75"/>';
+        }
+      }
+      return s +
         '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="#d2402f"/>' +
         '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r * 0.7).toFixed(1) + '" fill="#b8202a"/>';
     }
@@ -4059,6 +4163,7 @@
         '<ellipse cx="0" cy="0" rx="10.5" ry="7" fill="#94a44e" stroke="#33401f" stroke-width="0.9"/>' +
         '<ellipse cx="-1" cy="-1" rx="6" ry="4" fill="#bbc97c" opacity="0.85"/>' +
         '<circle cx="8" cy="-4" r="4.3" fill="#a9b862" stroke="#33401f" stroke-width="0.8"/>' +
+        '<path d="M5.4 -7.6 C7 -8.6 9.6 -8.2 11 -7.2" stroke="#f2f0dc" stroke-width="0.85" fill="none" stroke-linecap="round"/>' +
         '<circle cx="9.2" cy="-4.6" r="1.05" fill="#1d2410"/>' +
         '<path d="M11.8 -4.4 L16.6 -3.2 L11.8 -1.8 Z" fill="#d99a3a"/>' +
         '<path d="M-2 7 L-2 12 M4 7 L4 12" stroke="#5e4a1c" stroke-width="1.1"/>');
@@ -4097,11 +4202,11 @@
 
     function bridge() {
       let s = '<path d="M4 66 L60 58 L60 67 L4 75 Z" fill="#a9763f" stroke="#4a2f18" stroke-width="1"/>';
-      for (let i = 1; i < 7; i++) {
-        const x = 4 + i * 8;
+      for (let i = 1; i < 8; i++) {
+        const x = 4 + i * 7;
         const yTop = 66 - i * 1.14;
         s += '<line x1="' + x.toFixed(1) + '" y1="' + (yTop + 9).toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + yTop.toFixed(1) +
-          '" stroke="#6b4520" stroke-width="0.75"/>';
+          '" stroke="#6b4520" stroke-width="0.85"/>';
       }
       s += '<path d="M7 60 L57 53" stroke="#7a5227" stroke-width="2.2" stroke-linecap="round"/>' +
         '<path d="M11 60 L11 67 M27 58 L27 65 M43 56 L43 63 M56 54 L56 61" stroke="#7a5227" stroke-width="1.7" stroke-linecap="round"/>';
@@ -4171,9 +4276,12 @@
 
     function cup() {
       return G(32, 74,
+        '<rect x="-14" y="10" width="28" height="3" rx="1.2" fill="#8a5a2b" stroke="#4a2f18" stroke-width="0.6"/>' +
+        '<rect x="-10" y="13" width="4" height="4" fill="#7a4f24"/>' +
+        '<rect x="6" y="13" width="4" height="4" fill="#7a4f24"/>' +
         '<path d="M-13 -9 L13 -9 L9 6 L-9 6 Z" fill="#b8202a" stroke="#7d141c" stroke-width="1"/>' +
         '<ellipse cx="0" cy="-9" rx="13" ry="3.2" fill="#d8402f" stroke="#f0c25a" stroke-width="1.1"/>' +
-        '<path d="M-8 6 L-6 12 L6 12 L8 6 Z" fill="#8e1c2e" stroke="#5e1016" stroke-width="0.9"/>' +
+        '<path d="M-8 6 L-6 10 L6 10 L8 6 Z" fill="#8e1c2e" stroke="#5e1016" stroke-width="0.9"/>' +
         '<text x="0" y="2.6" text-anchor="middle" font-size="9.5" font-weight="900" fill="#f5d97a" font-family="serif">壽</text>');
     }
 
@@ -4226,7 +4334,7 @@
     function m1(card) {
       const bright = card.category === 'bright';
       let s = '';
-      if (bright) s += sunDisc(27, 23, 11);
+      if (bright) s += sunDisc(27, 23, 11, true);
       s += '<path d="M7 92 C10 76 16 68 14 54 C13 46 18 40 25 37" stroke="#3a2a1b" stroke-width="4.4" fill="none" stroke-linecap="round"/>' +
         '<path d="M24 38 C32 29 42 27 53 28" stroke="#3a2a1b" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
         '<path d="M15 56 C21 50 27 49 34 52" stroke="#3a2a1b" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
@@ -4345,12 +4453,11 @@
 
     function m9(card) {
       const guk = card.isGukjin;
-      const cy = guk ? 34 : 56;
+      const cy = guk ? 30 : 56;
       let s = '';
       if (guk) {
-        s += '<path d="M32 60 L32 44" stroke="#2f6b3d" stroke-width="2.6" stroke-linecap="round"/>' +
-          '<path d="M32 54 C26 52 23 47 24 43 C29 46 32 50 32 54 Z" fill="#2f6b3d"/>' +
-          '<path d="M32 50 C38 48 41 43 40 39 C35 42 32 46 32 50 Z" fill="#2f6b3d"/>';
+        s += '<path d="M32 46 C25 44 22 38 23 34 C29 37 32 41 32 46 Z" fill="#2f6b3d"/>' +
+          '<path d="M32 46 C39 44 42 38 41 34 C35 37 32 41 32 46 Z" fill="#3d7f4c"/>';
       } else {
         s += '<path d="M20 88 C22 76 26 70 32 68 C38 70 42 76 44 88" stroke="#2f6b3d" stroke-width="3" fill="none" stroke-linecap="round"/>';
       }
@@ -4399,8 +4506,14 @@
         s += '<line x1="' + x + '" y1="' + y + '" x2="' + (x - 3.4).toFixed(1) + '" y2="' + (y + 7).toFixed(1) +
           '" stroke="#7a93a8" stroke-width="1" stroke-linecap="round" opacity="0.6"/>';
       }
-      if (card.category === 'bright') s += umbrellaman();
-      else if (card.category === 'animal') s += swallow(34, 52);
+      if (card.category === 'bright') {
+        s += umbrellaman() +
+          G(17, 87,
+            '<ellipse cx="0" cy="0" rx="4" ry="3" fill="#5f9a48" stroke="#2b4a1e" stroke-width="0.5"/>' +
+            '<circle cx="-2.4" cy="-1.6" r="1.1" fill="#f6f2e4"/><circle cx="-2.4" cy="-1.6" r="0.5" fill="#141a10"/>' +
+            '<circle cx="1.4" cy="-1.8" r="1.1" fill="#f6f2e4"/><circle cx="1.4" cy="-1.8" r="0.5" fill="#141a10"/>' +
+            '<path d="M2.6 2 L6 4.6 M-2.4 2.4 L-5 4.8" stroke="#2b4a1e" stroke-width="0.8" stroke-linecap="round"/>');
+      } else if (card.category === 'animal') s += swallow(34, 52);
       else s += '<path d="M6 82 Q18 76 28 84 Q40 90 54 80" stroke="#2f6b3d" stroke-width="2.6" fill="none"/>';
       return s;
     }
@@ -7255,6 +7368,8 @@
         '<div class="toggle-row"><span>기본 인원</span>' + selHtml('set_mode', lobbyMode, [{ v: 2, l: '2인 맞고' }, { v: 3, l: '3인 고스톱' }]) + '</div>' +
         '<div class="toggle-row"><span>기본 점당 금액</span>' + selHtml('set_stake', s.defaultStake, [{ v: 0, l: '스테이지 따름 (기본)' }, { v: 100, l: '100원' }, { v: 500, l: '500원' }, { v: 1000, l: '1,000원' }, { v: 3000, l: '3,000원' }, { v: 10000, l: '10,000원' }]) + '</div>' +
         '<div class="toggle-row"><span>AI 난이도</span>' + selHtml('set_diff', s.difficulty, [{ v: 'auto', l: '캐릭터 기본 (추천)' }, { v: 'easy', l: '쉬움' }, { v: 'normal', l: '보통' }, { v: 'hard', l: '어려움' }]) + '</div>' +
+        '<div class="set-sec-title">캐릭터</div>' +
+        '<div class="toggle-row"><span>캐릭터 대사 직접 편집</span><button id="btnOpenLineEditor" class="small" type="button">대사 편집</button></div>' +
         '<div class="set-sec-title">화면 · 조작 · 사운드</div>' +
         '<div class="toggle-row"><span>매칭 패 강조 (내패/바닥)</span><button id="togHighlight" class="small" type="button">' + (s.highlightMatches ? 'ON' : 'OFF') + '</button></div>' +
         '<div class="toggle-row"><span>애니메이션 속도</span><button id="togFast" class="small" type="button">' + (s.fastAnim ? '빠르게' : '보통') + '</button></div>' +
@@ -7326,6 +7441,9 @@
         openSettingsModal(true);
       };
 
+      const btnLineEditor = box.querySelector('#btnOpenLineEditor');
+      if (btnLineEditor) btnLineEditor.onclick = () => openDialogueEditor();
+
       box.querySelector('#togHighlight').onclick = (e) => {
         s.highlightMatches = !s.highlightMatches; Store.saveSettings(s);
         e.target.textContent = s.highlightMatches ? 'ON' : 'OFF';
@@ -7368,6 +7486,89 @@
         confirmBox.querySelector('#btnCancelReset').onclick = () => openSettingsModal(false);
       };
       box.querySelector('#btnCloseSet').onclick = closeModal;
+    }
+
+    // --- 캐릭터 대사 편집 ---
+    const DIALOGUE_SITUATIONS = Object.freeze([
+      { key: 'start', label: '판 시작' },
+      { key: 'capture', label: '패를 먹었을 때' },
+      { key: 'ppeok', label: '뻑이 났을 때' },
+      { key: 'go', label: '고 선언' },
+      { key: 'stop', label: '스톱 선언' },
+      { key: 'win', label: '승리' },
+      { key: 'lose', label: '패배' },
+      { key: 'pibak', label: '피박' }
+    ]);
+
+    function escHtml(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => (
+        c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;'
+      ));
+    }
+
+    function openDialogueEditor() {
+      const custom = Store.getCustomLines();
+      let html = '<h3>캐릭터 대사 편집</h3>' +
+        '<div class="dlg-note">한 줄에 대사 하나씩 입력하세요. 비워 둔 칸은 기본 대사를 그대로 씁니다. 입력한 대사는 이 브라우저에만 저장되고, 진행 중인 판부터 바로 적용됩니다.</div>' +
+        '<div class="dlg-tabs">';
+      AI.CHARACTERS.forEach((ch, i) => {
+        html += '<button type="button" class="dlg-tab' + (i === 0 ? ' active' : '') + '" data-dlg-tab="' + ch.id + '">' +
+          ch.avatar + ' ' + escHtml(ch.name) + '</button>';
+      });
+      html += '</div>';
+
+      AI.CHARACTERS.forEach((ch, i) => {
+        html += '<div class="dlg-pane' + (i === 0 ? ' active' : '') + '" data-dlg-pane="' + ch.id + '">';
+        for (const sit of DIALOGUE_SITUATIONS) {
+          const cur = (custom[ch.id] && custom[ch.id][sit.key]) || [];
+          const def = (ch.lines && ch.lines[sit.key]) || [];
+          html += '<div class="dlg-field">' +
+            '<label>' + sit.label + '</label>' +
+            '<textarea data-dlg-char="' + ch.id + '" data-dlg-sit="' + sit.key + '" ' +
+            'placeholder="' + escHtml(def.join('\n')) + '">' + escHtml(cur.join('\n')) + '</textarea>' +
+            '</div>';
+        }
+        html += '</div>';
+      });
+
+      html += '<div class="modal-btns">' +
+        '<button id="btnDlgReset" class="small danger" type="button">전체 기본값으로</button>' +
+        '<button id="btnDlgSave" class="primary" type="button">저장</button>' +
+        '</div>' +
+        '<div class="modal-btns single"><button id="btnDlgClose" class="small" type="button">닫기</button></div>';
+
+      const box = showModal(html);
+
+      for (const tab of box.querySelectorAll('[data-dlg-tab]')) {
+        tab.onclick = () => {
+          for (const t of box.querySelectorAll('[data-dlg-tab]')) t.classList.toggle('active', t === tab);
+          for (const p of box.querySelectorAll('[data-dlg-pane]')) {
+            p.classList.toggle('active', p.getAttribute('data-dlg-pane') === tab.getAttribute('data-dlg-tab'));
+          }
+        };
+      }
+
+      box.querySelector('#btnDlgSave').onclick = () => {
+        const data = {};
+        for (const ta of box.querySelectorAll('textarea[data-dlg-char]')) {
+          const cid = ta.getAttribute('data-dlg-char');
+          const sit = ta.getAttribute('data-dlg-sit');
+          const arr = ta.value.split('\n').map(t => t.trim()).filter(t => t.length > 0);
+          if (!arr.length) continue;
+          if (!data[cid]) data[cid] = {};
+          data[cid][sit] = arr;
+        }
+        Store.saveCustomLines(data);
+        FX.playSfx('snap');
+        closeModal();
+      };
+
+      box.querySelector('#btnDlgReset').onclick = () => {
+        Store.saveCustomLines({});
+        openDialogueEditor();
+      };
+
+      box.querySelector('#btnDlgClose').onclick = () => openSettingsModal();
     }
 
     function openStatsModal() {
