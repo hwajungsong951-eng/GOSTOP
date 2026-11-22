@@ -168,6 +168,24 @@
       flex-direction: column;
       gap: 6px;
     }
+    .opp-slot-title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 8px 0 2px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .opp-slot-title:first-child { margin-top: 0; }
+    .opp-slot-title .slot-chip {
+      font-size: 9.5px;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: #143f2b;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
     .char-opt {
       display: flex;
       align-items: center;
@@ -196,8 +214,9 @@
       flex-shrink: 0;
     }
     .char-info { flex: 1; min-width: 0; }
-    .char-name { font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-    .char-meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .char-name { font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 6px; word-break: keep-all; }
+    .char-name-txt { white-space: nowrap; }
+    .char-meta { font-size: 11px; color: var(--muted); margin-top: 1px; word-break: keep-all; }
     .diff-tag {
       font-size: 10px;
       padding: 1px 6px;
@@ -210,10 +229,19 @@
 
     .lobby-actions {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
     }
     .lobby-actions .full { grid-column: 1 / -1; }
+    .lobby-actions button { min-width: 0; }
+    /* 360px 폭에서도 '파산 구제 (+3만원)' 이 잘리지 않게 */
+    #reliefBtn {
+      font-size: 12.5px;
+      padding-left: 4px;
+      padding-right: 4px;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+    }
 
     /* ================= GAME TABLE ================= */
     #gameView {
@@ -307,6 +335,12 @@
       gap: 4px;
       font-size: 10px;
       color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .opp-sub .opp-gukjin {
+      color: #fde047;
+      font-weight: 800;
+      white-space: nowrap;
     }
     .opp-cap-strip {
       display: flex;
@@ -316,16 +350,18 @@
       padding: 4px 5px;
       border-radius: 7px;
       background: rgba(5, 20, 13, 0.65);
+      height: 44px;
       min-height: 44px;
       overflow: hidden;
     }
     .opp-cap-cards {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       gap: 2px 0;
       flex: 1;
       min-width: 0;
+      overflow: hidden;
     }
     .opp-cap-cards .hw-card.opp-mini {
       width: 26px;
@@ -346,22 +382,43 @@
       white-space: nowrap;
       flex-shrink: 0;
       text-align: right;
+      padding-left: 4px;
+      background: rgba(5, 20, 13, 0.9);
+      position: relative;
+      z-index: 1;
+    }
+    .opp-cap-empty {
+      font-size: 9.5px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+      max-width: 100%;
     }
 
-    /* Speech Bubble */
+    /* Speech Bubble — 상대 카드 안에서만 표시해 바닥패/내 손패를 가리지 않는다 */
     .speech-bubble {
       position: absolute;
-      left: 8px;
-      right: 8px;
-      top: calc(100% + 4px);
+      left: 4px;
+      right: 4px;
+      top: 4px;
+      bottom: 4px;
       z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       background: #fffdf5;
       color: #1c1917;
       border: 2px solid var(--accent);
-      border-radius: 10px;
-      padding: 6px 9px;
-      font-size: 11.5px;
+      border-radius: 9px;
+      padding: 4px 6px;
+      font-size: 11px;
+      line-height: 1.25;
       font-weight: 700;
+      word-break: keep-all;
+      overflow: hidden;
       box-shadow: 0 6px 16px rgba(0,0,0,0.45);
       pointer-events: none;
       animation: popIn 0.18s ease-out;
@@ -373,14 +430,15 @@
 
     /* Center Table: Compact Floor + Deck */
     .table-center {
-      flex: 0.85;
-      min-height: 0;
+      flex: 1 1 0;
+      min-height: clamp(130px, 25vh, 230px);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 5px;
       padding: 4px 6px;
       position: relative;
+      overflow: hidden;
     }
     .floor-zone {
       flex: 1;
@@ -396,6 +454,7 @@
       border-radius: 10px;
       border: 1.5px dashed rgba(166, 196, 181, 0.2);
       transition: border-color 0.15s ease, background 0.15s ease;
+      overflow-y: auto;
     }
     .floor-zone.drop-ready {
       border-color: var(--accent);
@@ -479,11 +538,16 @@
       border: 1px solid var(--border);
       padding: 2px 8px;
       border-radius: 999px;
+      white-space: nowrap;
     }
     .turn-hint {
       font-size: 11px;
       color: var(--muted);
       font-weight: 700;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .turn-hint.your-turn { color: var(--ok); }
 
@@ -502,13 +566,44 @@
       flex-direction: column;
       gap: 2px;
       overflow: hidden;
+      cursor: pointer;
     }
+    .cap-col:active { background: #123c29; }
     .cap-col-head {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      gap: 2px;
       font-size: 9.5px;
       font-weight: 700;
       color: var(--muted);
+      white-space: nowrap;
+      min-width: 0;
+    }
+    .cap-col-head > span:first-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .gukjin-tag {
+      display: inline-block;
+      margin-left: 2px;
+      padding: 0 3px;
+      border-radius: 3px;
+      background: #1f6b3d;
+      color: #ffe9a8;
+      font-size: 8.5px;
+      font-weight: 900;
+      vertical-align: 1px;
+    }
+    .gukjin-summary {
+      margin: 2px 0 8px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: rgba(31, 107, 61, 0.35);
+      border: 1px solid rgba(240, 194, 90, 0.55);
+      font-size: 11.5px;
+      text-align: center;
+      color: #ffe9a8;
     }
     .cap-cards-strip {
       display: flex;
@@ -694,6 +789,7 @@
       78% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
       100% { opacity: 0; transform: translate(-50%, -56%) scale(0.94); }
     }
+
     .prog-bar {
       width: 100%;
       height: 6px;
@@ -788,6 +884,17 @@
       margin-top: 10px;
     }
     .modal-btns.single { grid-template-columns: 1fr; }
+    /* 긴 모달(꾸미기 등)에서 닫기 버튼이 스크롤 밖으로 사라지지 않게 */
+    .modal-btns.sticky {
+      position: sticky;
+      bottom: -16px;
+      z-index: 4;
+      margin: 10px -16px -16px;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: linear-gradient(180deg, rgba(16, 54, 37, 0.86) 0%, var(--panel) 42%);
+      border-top: 1px solid rgba(43, 110, 78, 0.75);
+      box-shadow: 0 -8px 18px rgba(0, 0, 0, 0.28);
+    }
     .settle-table {
       width: 100%;
       border-collapse: collapse;
@@ -975,7 +1082,7 @@
       </div>
 
       <div class="panel-box">
-        <h2>상대 캐릭터 선택 <span id="opp2Note" style="font-size:11px;color:var(--muted);font-weight:400;"></span></h2>
+        <h2>상대 캐릭터 선택</h2>
         <div id="charList" class="char-grid"></div>
       </div>
 
@@ -2280,6 +2387,14 @@
       return asDouble.baseScore >= asAnimal.baseScore ? asDouble : asAnimal;
     }
 
+    // UI 표시용: 국진이 실제로 열끗/쌍피 중 어느 쪽으로 계산됐는지.
+    // 'double' | 'animal' | null
+    function gukjinSideOf(state, playerId) {
+      const p = state.players[playerId];
+      if (!p || !p.captured.animal.some(c => c.isGukjin)) return null;
+      return scoreOf(state, playerId).gukjinAsDouble ? 'double' : 'animal';
+    }
+
     function canDeclare(state, playerId) {
       const player = state.players[playerId];
       const config = state.config;
@@ -3135,6 +3250,7 @@
       legalMoves,
       applyMove,
       scoreOf,
+      gukjinSideOf,
       canDeclare,
       declareGo,
       declareStop,
@@ -4660,18 +4776,21 @@
         // 이미지 로딩 실패 시에도 패가 보이도록 한다.
         const photo = (theme === 'photo');
         const vbH = photo ? 105 : 96;
-        const inner = grain(t, card.month) + motif(card) + ribbon(card) + piMarks(card) +
+        const gOpen = photo ? '<g transform="scale(1 1.09375)">' : '<g>';
+        // 벡터 그림은 실사 이미지의 대체재(아래 레이어)로 깔고,
+        // 월 숫자·광/열/띠/국진 배지는 이미지 위(위 레이어)에 올린다.
+        const art = grain(t, card.month) + motif(card) + ribbon(card) + piMarks(card) +
           '<rect x="3" y="3" width="58" height="90" rx="2.4" fill="none" stroke="' + t.edge + '" stroke-width="0.9"/>' +
           '<rect x="1" y="1" width="62" height="94" rx="4" fill="none" stroke="' + (bright ? t.brightFrame : t.frame) +
-          '" stroke-width="' + (bright ? 2 : 1.1) + '" stroke-opacity="' + (bright ? 0.9 : 0.38) + '"/>' +
-          monthTab(card.month) +
-          badge(card);
+          '" stroke-width="' + (bright ? 2 : 1.1) + '" stroke-opacity="' + (bright ? 0.9 : 0.38) + '"/>';
+        const overlay = monthTab(card.month) + badge(card);
         svg = '<svg viewBox="0 0 64 ' + vbH + '" xmlns="http://www.w3.org/2000/svg">' +
           '<rect x="0" y="0" width="64" height="' + vbH + '" fill="' + t.face + '"/>' +
-          '<g transform="' + (photo ? 'scale(1 1.09375)' : 'none') + '">' + inner + '</g>' +
+          gOpen + art + '</g>' +
           (photo
             ? '<image href="./cards/' + card.id + '.svg" x="0" y="0" width="64" height="105" preserveAspectRatio="none"/>'
             : '') +
+          gOpen + overlay + '</g>' +
           '</svg>';
       }
       cache[key] = svg;
@@ -6229,6 +6348,56 @@
       assertEq(rGo.state.phase, 'GO_STOP_DECISION', '목표 점수 달성 시 GO_STOP_DECISION 팝업 진입');
     });
 
+    test('ST07', '실사 테마에서 월 숫자·광/열/띠/국진 배지가 패 이미지 위에 그려짐', () => {
+      const cases = [
+        { id: '01-bright', label: '光' },
+        { id: '02-animal', label: '열' },
+        { id: '01-ribbon', label: '띠' },
+        { id: '09-animal', label: '국진' }
+      ];
+      for (const c of cases) {
+        const card = Engine.CARDS_BY_ID[c.id];
+        const svg = CardArt.getSvg(card, 'photo');
+        const imgAt = svg.indexOf('<image ');
+        const badgeAt = svg.indexOf('>' + c.label + '</text>');
+        const monthAt = svg.indexOf('>' + card.month + '</text>');
+        assert(imgAt > 0, c.id + ' 실사 이미지 포함');
+        assert(badgeAt > imgAt, c.id + ' 배지가 이미지 뒤(위)에 있음');
+        assert(monthAt > imgAt, c.id + ' 월 숫자가 이미지 뒤(위)에 있음');
+      }
+    });
+
+    test('ST08', '전통 벡터 테마는 이미지 없이 월 숫자·배지를 그대로 포함', () => {
+      const card = Engine.CARDS_BY_ID['01-bright'];
+      const svg = CardArt.getSvg(card, 'classic');
+      assertEq(svg.indexOf('<image '), -1, '클래식 테마에는 실사 이미지 없음');
+      assert(svg.indexOf('>光</text>') > 0, '광 배지 포함');
+      assert(svg.indexOf('>1</text>') > 0, '월 숫자 포함');
+    });
+
+    test('ST09', '국진이 열끗/쌍피 중 어느 쪽으로 계산됐는지 UI용으로 판별', () => {
+      const sAnimal = Engine.createCustomState({
+        config: { playerCount: 2, gukjinRule: 'always_animal' },
+        players: [{
+          captured: {
+            animal: ['02-animal', '05-animal', '06-animal', '07-animal', '09-animal'],
+            junk: ['01-junk-1', '01-junk-2', '02-junk-1', '02-junk-2', '03-junk-1', '03-junk-2', '04-junk-1']
+          }
+        }]
+      });
+      assertEq(Engine.gukjinSideOf(sAnimal, 0), 'animal', '항상 열끗 규칙');
+      const sDouble = Engine.createCustomState({
+        config: { playerCount: 2 },
+        players: [{ captured: { animal: ['09-animal'], junk: [] } }]
+      });
+      assertEq(Engine.gukjinSideOf(sDouble, 0), 'double', '동점 시 쌍피');
+      const sNone = Engine.createCustomState({
+        config: { playerCount: 2 },
+        players: [{ captured: { animal: ['02-animal'], junk: [] } }]
+      });
+      assertEq(Engine.gukjinSideOf(sNone, 0), null, '국진 없음');
+    });
+
     const passed = results.filter(r => r.pass).length;
     return { total: results.length, passed, failed: results.length - passed, results };
   }
@@ -6240,6 +6409,7 @@
     let lobbyMode = 2;
     let lobbyStageId = 0;
     let lobbyOppId = 'gwangryeol';
+    let lobbyOppId2 = 'jungmadam';
 
     let match = null;
     let selectedCardId = null;
@@ -6357,7 +6527,6 @@
       for (const b of document.querySelectorAll('#modeSeg .seg-btn')) {
         b.classList.toggle('active', Number(b.dataset.mode) === lobbyMode);
       }
-      document.getElementById('opp2Note').textContent = lobbyMode === 3 ? '(3인: 짝귀 자동 참전)' : '';
 
       // Career Stages
       const careerList = document.getElementById('careerList');
@@ -6383,49 +6552,96 @@
             lobbyOppId = stg.chars[0];
             Store.set('lobbyOppId', lobbyOppId);
           }
+          if (lobbyOppId2 === lobbyOppId) {
+            lobbyOppId2 = (AI.CHARACTERS.find(c => c.id !== lobbyOppId) || AI.CHARACTERS[0]).id;
+            Store.set('lobbyOppId2', lobbyOppId2);
+          }
           renderLobby();
         };
         careerList.appendChild(btn);
       }
 
-      // Characters
+      // Characters — 3인에서는 상대 2명을 각각 직접 선택한다.
       const activeStage = Store.CAREER_STAGES[lobbyStageId] || Store.CAREER_STAGES[0];
       const charList = document.getElementById('charList');
       charList.innerHTML = '';
-      for (const ch of AI.CHARACTERS) {
-        const isStageMember = activeStage.chars.includes(ch.id);
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'char-opt' + (ch.id === lobbyOppId ? ' active' : '');
-        const diffLabel = ch.difficulty === 'easy' ? '쉬움' : (ch.difficulty === 'normal' ? '보통' : '어려움');
-        btn.innerHTML =
-          '<div class="char-av">' + ch.avatar + '</div>' +
-          '<div class="char-info">' +
-            '<div class="char-name">' + ch.name + ' <span class="diff-tag diff-' + ch.difficulty + '">' + diffLabel + '</span>' + (isStageMember ? ' <span style="font-size:10px;color:var(--ok);">★무대</span>' : '') + '</div>' +
-            '<div class="char-meta">' + ch.title + ' · ' + ch.style + '</div>' +
-          '</div>';
-        btn.addEventListener('click', () => {
-          lobbyOppId = ch.id;
-          Store.set('lobbyOppId', lobbyOppId);
-          renderLobby();
-        });
-        charList.appendChild(btn);
+      const oppSlots = lobbyMode === 3 ? [1, 2] : [1];
+      for (const slot of oppSlots) {
+        if (lobbyMode === 3) {
+          const title = document.createElement('div');
+          title.className = 'opp-slot-title';
+          const curCh = AI.getCharacter(slot === 1 ? lobbyOppId : lobbyOppId2);
+          title.innerHTML = '상대 ' + slot + ' <span class="slot-chip">' + curCh.name + '</span>';
+          charList.appendChild(title);
+        }
+        const currentId = slot === 1 ? lobbyOppId : lobbyOppId2;
+        for (const ch of AI.CHARACTERS) {
+          const isStageMember = activeStage.chars.includes(ch.id);
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'char-opt' + (ch.id === currentId ? ' active' : '');
+          btn.dataset.oppSlot = String(slot);
+          btn.dataset.charId = ch.id;
+          const diffLabel = ch.difficulty === 'easy' ? '쉬움' : (ch.difficulty === 'normal' ? '보통' : '어려움');
+          btn.innerHTML =
+            '<div class="char-av">' + ch.avatar + '</div>' +
+            '<div class="char-info">' +
+              '<div class="char-name"><span class="char-name-txt">' + ch.name + '</span> <span class="diff-tag diff-' + ch.difficulty + '">' + diffLabel + '</span>' + (isStageMember ? ' <span style="font-size:10px;color:var(--ok);">★무대</span>' : '') + '</div>' +
+              '<div class="char-meta">' + ch.title + ' · ' + ch.style + '</div>' +
+            '</div>';
+          btn.addEventListener('click', () => {
+            if (slot === 1) {
+              const prev = lobbyOppId;
+              lobbyOppId = ch.id;
+              // 3인에서 같은 캐릭터가 양쪽에 겹치면 서로 자리를 바꾼다.
+              if (lobbyMode === 3 && lobbyOppId2 === lobbyOppId) {
+                lobbyOppId2 = prev;
+                Store.set('lobbyOppId2', lobbyOppId2);
+              }
+              Store.set('lobbyOppId', lobbyOppId);
+            } else {
+              const prev = lobbyOppId2;
+              lobbyOppId2 = ch.id;
+              if (lobbyOppId2 === lobbyOppId) {
+                lobbyOppId = prev;
+                Store.set('lobbyOppId', lobbyOppId);
+              }
+              Store.set('lobbyOppId2', lobbyOppId2);
+            }
+            renderLobby();
+          });
+          charList.appendChild(btn);
+        }
       }
     }
 
-    // --- Opponent Captured Detail Modal ---
-    function showOpponentCapturedModal(playerId) {
+    // --- Captured Detail Modal (내 패/상대 패 공용) ---
+    function showCapturedModal(playerId) {
       if (!match) return;
-      const p = match.gameState.players[playerId];
-      const ch = AI.getCharacter(match.oppCharIds[playerId - 1]);
-      const sc = Engine.scoreOf(match.gameState, playerId);
+      const st = match.gameState;
+      const p = st.players[playerId];
+      if (!p) return;
+      const isMe = playerId === 0;
+      const ch = isMe ? { avatar: '🙂', name: '나' } : AI.getCharacter(match.oppCharIds[playerId - 1]);
+      const sc = Engine.scoreOf(st, playerId);
+      const gukjinSide = Engine.gukjinSideOf(st, playerId);
+      const animalCards = gukjinSide === 'double'
+        ? p.captured.animal.filter(c => !c.isGukjin)
+        : p.captured.animal;
+      const junkCards = gukjinSide === 'double'
+        ? p.captured.junk.concat(p.captured.animal.filter(c => c.isGukjin))
+        : p.captured.junk;
       const sections = [
         { label: '광 (' + p.captured.bright.length + '장)', cards: p.captured.bright },
-        { label: '열끗 (' + p.captured.animal.length + '장)', cards: p.captured.animal },
+        { label: '열끗 (' + sc.animalCount + '장)' + (gukjinSide === 'animal' ? ' · 국진 포함' : ''), cards: animalCards },
         { label: '띠 (' + p.captured.ribbon.length + '장)', cards: p.captured.ribbon },
-        { label: '피 (' + sc.piCount + '피)', cards: p.captured.junk }
+        { label: '피 (' + sc.piCount + '피)' + (gukjinSide === 'double' ? ' · 국진 쌍피 포함' : ''), cards: junkCards }
       ];
       let html = '<h3>' + ch.avatar + ' ' + ch.name + ' 먹은 패 (' + sc.totalScore + '점)</h3>';
+      if (gukjinSide) {
+        html += '<div class="gukjin-summary">국진은 <b>' +
+          (gukjinSide === 'double' ? '쌍피(2피)' : '열끗') + '</b>으로 계산됩니다.</div>';
+      }
       for (const sec of sections) {
         html += '<div class="list-item-box"><div>' + sec.label + '</div><div class="opp-detail-cards">';
         if (sec.cards.length === 0) {
@@ -6437,9 +6653,9 @@
         }
         html += '</div></div>';
       }
-      html += '<div class="modal-btns single"><button id="btnCloseOppCap" class="primary" type="button">닫기</button></div>';
+      html += '<div class="modal-btns single sticky"><button id="btnCloseCap" class="primary" type="button">닫기</button></div>';
       const box = showModal(html);
-      box.querySelector('#btnCloseOppCap').onclick = closeModal;
+      box.querySelector('#btnCloseCap').onclick = closeModal;
     }
 
     // --- Table Rendering ---
@@ -6475,6 +6691,7 @@
         const p = st.players[i];
         const ch = AI.getCharacter(match.oppCharIds[i - 1]);
         const sc = Engine.scoreOf(st, i);
+        const gukjinSide = Engine.gukjinSideOf(st, i);
         const oppEl = document.createElement('div');
         oppEl.id = 'oppCard_' + i;
         oppEl.className = 'opp-card' + (st.turn === i && st.phase !== 'GAME_OVER' ? ' active-turn' : '');
@@ -6488,28 +6705,37 @@
           .concat(p.captured.junk.filter(c => c.piValue === 1));
 
         let cardsHtml = '';
-        const showLimit = st.players.length === 3 ? 16 : 24;
+        // 한 줄 고정: 먹은 패가 늘어도 상대 칸 높이가 커져 테이블을 밀어내지 않는다.
+        const showLimit = st.players.length === 3 ? 5 : 12;
         for (const c of allCap.slice(0, showLimit)) {
           cardsHtml += '<div class="hw-card opp-mini">' + CardArt.getSvg(c) + '</div>';
         }
         if (allCap.length === 0) {
-          cardsHtml = '<span style="font-size:10px;color:var(--muted);">아직 먹은 패 없음</span>';
+          cardsHtml = '<span class="opp-cap-empty">아직 먹은 패 없음</span>';
         }
+        // 먹은 패가 없을 때는 0 숫자 대신 안내 문구가 온전히 보이게 한다.
+        const countsHtml = allCap.length > 0
+          ? '<div class="opp-cap-counts">광' + p.captured.bright.length + ' 열' + sc.animalCount + ' 띠' + p.captured.ribbon.length + ' 피' + sc.piCount + '</div>'
+          : '';
+
+        const gukjinTxt = gukjinSide
+          ? ' · <span class="opp-gukjin">국진 ' + (gukjinSide === 'double' ? '쌍피' : '열끗') + '</span>'
+          : '';
 
         oppEl.innerHTML =
           '<div class="opp-head">' +
             '<div class="opp-av">' + ch.avatar + '</div>' +
             '<div class="opp-meta">' +
               '<div class="opp-name-row"><span class="opp-name-txt">' + ch.name + (p.goCount ? ' (' + p.goCount + '고)' : '') + '</span><span class="opp-coins">' + p.coins.toLocaleString() + '원</span></div>' +
-              '<div class="opp-sub"><span>패 ' + p.hand.length + '장</span><span>' + sc.totalScore + '점' + (p.shakeMonths.length + p.bombMonths.length > 0 ? ' · 흔/폭' : '') + '</span></div>' +
+              '<div class="opp-sub"><span>패 ' + p.hand.length + '장</span><span>' + sc.totalScore + '점' + gukjinTxt + (p.shakeMonths.length + p.bombMonths.length > 0 ? ' · 흔/폭' : '') + '</span></div>' +
             '</div>' +
           '</div>' +
           '<div class="opp-cap-strip" data-opp-cap="' + i + '" title="탭하여 전체 보기">' +
             '<div class="opp-cap-cards">' + cardsHtml + '</div>' +
-            '<div class="opp-cap-counts">광' + p.captured.bright.length + ' 열' + sc.animalCount + ' 띠' + p.captured.ribbon.length + ' 피' + sc.piCount + '</div>' +
+            countsHtml +
           '</div>';
 
-        oppEl.querySelector('[data-opp-cap]').addEventListener('click', () => showOpponentCapturedModal(i));
+        oppEl.querySelector('[data-opp-cap]').addEventListener('click', () => showCapturedModal(i));
         if (existingBubbles[i]) oppEl.appendChild(existingBubbles[i]);
         oppRow.appendChild(oppEl);
       }
@@ -6584,8 +6810,12 @@
 
       // 4. My Captured Grid
       const mySc = Engine.scoreOf(st, 0);
-      const myScoreTxt = '내 점수: ' + mySc.totalScore + '점' + (me.goCount ? ' (' + me.goCount + '고)' : '') + (me.shakeMonths.length + me.bombMonths.length > 0 ? ' · ×' + Math.pow(2, me.shakeMonths.length + me.bombMonths.length) : '');
-      document.getElementById('myScoreBadge').textContent = myScoreTxt;
+      const myGukjinSide = Engine.gukjinSideOf(st, 0);
+      const myGukjinTxt = myGukjinSide ? ' · 국진 ' + (myGukjinSide === 'double' ? '쌍피' : '열끗') : '';
+      const myScoreTxt = '내 점수: ' + mySc.totalScore + '점' + (me.goCount ? ' (' + me.goCount + '고)' : '') + (me.shakeMonths.length + me.bombMonths.length > 0 ? ' · ×' + Math.pow(2, me.shakeMonths.length + me.bombMonths.length) : '') + myGukjinTxt;
+      const myScoreBadge = document.getElementById('myScoreBadge');
+      myScoreBadge.textContent = myScoreTxt;
+      myScoreBadge.title = myGukjinSide ? '국진 ' + (myGukjinSide === 'double' ? '쌍피' : '열끗') : '';
 
       const hint = document.getElementById('turnHint');
       if (st.phase === 'GAME_OVER') {
@@ -6604,14 +6834,16 @@
       capGrid.innerHTML = '';
       const capCats = [
         { key: 'bright', label: '광', count: me.captured.bright.length, cards: me.captured.bright },
-        { key: 'animal', label: '열끗', count: mySc.animalCount, cards: mySc.gukjinAsDouble ? me.captured.animal.filter(c => !c.isGukjin) : me.captured.animal },
+        { key: 'animal', label: '열끗' + (myGukjinSide === 'animal' ? '<span class="gukjin-tag">국진</span>' : ''), count: mySc.animalCount, cards: mySc.gukjinAsDouble ? me.captured.animal.filter(c => !c.isGukjin) : me.captured.animal },
         { key: 'ribbon', label: '띠', count: me.captured.ribbon.length, cards: me.captured.ribbon },
-        { key: 'junk', label: '피', count: mySc.piCount, cards: mySc.gukjinAsDouble ? me.captured.junk.concat(me.captured.animal.filter(c => c.isGukjin)) : me.captured.junk }
+        { key: 'junk', label: '피' + (myGukjinSide === 'double' ? '<span class="gukjin-tag">국진</span>' : ''), count: mySc.piCount, cards: mySc.gukjinAsDouble ? me.captured.junk.concat(me.captured.animal.filter(c => c.isGukjin)) : me.captured.junk }
       ];
       for (const cat of capCats) {
         const col = document.createElement('div');
         col.className = 'cap-col';
         col.id = 'myCap_' + cat.key;
+        col.dataset.capPlayer = '0';
+        col.title = '탭하여 내가 먹은 패 전체 보기';
         col.innerHTML = '<div class="cap-col-head"><span>' + cat.label + '</span><span>' + cat.count + '</span></div>';
         const strip = document.createElement('div');
         strip.className = 'cap-cards-strip';
@@ -6622,6 +6854,7 @@
           strip.appendChild(mc);
         }
         col.appendChild(strip);
+        col.addEventListener('click', () => showCapturedModal(0));
         capGrid.appendChild(col);
       }
 
@@ -7132,8 +7365,13 @@
       const stake = Number(settings.defaultStake) > 0 ? Number(settings.defaultStake) : stage.stake;
       const oppIds = [lobbyOppId];
       if (playerCount === 3) {
-        const second = AI.CHARACTERS.find(c => c.id !== lobbyOppId && c.difficulty === 'normal') || AI.CHARACTERS[2];
-        oppIds.push(second.id);
+        let secondId = lobbyOppId2;
+        if (!secondId || secondId === lobbyOppId) {
+          secondId = (AI.CHARACTERS.find(c => c.id !== lobbyOppId) || AI.CHARACTERS[0]).id;
+          lobbyOppId2 = secondId;
+          Store.set('lobbyOppId2', secondId);
+        }
+        oppIds.push(secondId);
       }
       const aiBank = Math.max(100000, stake * 150);
       const initialCoins = playerCount === 2 ? [humanCoins, aiBank] : [humanCoins, aiBank, aiBank];
@@ -7305,7 +7543,7 @@
           '<div style="font-size:11px;color:var(--muted);">' + tb.desc + '</div>' +
         '</div>';
       }
-      html += '<div class="modal-btns single"><button id="btnCloseCos" class="primary" type="button">닫기</button></div>';
+      html += '<div class="modal-btns single sticky"><button id="btnCloseCos" class="primary" type="button">닫기</button></div>';
       const box = showModal(html);
 
       for (const b of box.querySelectorAll('[data-equip-card]')) {
@@ -7716,6 +7954,14 @@
         lobbyOppId = AI.LEGACY_IDS[lobbyOppId];
         Store.set('lobbyOppId', lobbyOppId);
       }
+      lobbyOppId2 = Store.get('lobbyOppId2', 'jungmadam');
+      if (AI.LEGACY_IDS[lobbyOppId2]) {
+        lobbyOppId2 = AI.LEGACY_IDS[lobbyOppId2];
+      }
+      if (!AI.CHARACTERS.some(c => c.id === lobbyOppId2) || lobbyOppId2 === lobbyOppId) {
+        lobbyOppId2 = (AI.CHARACTERS.find(c => c.id !== lobbyOppId) || AI.CHARACTERS[0]).id;
+      }
+      Store.set('lobbyOppId2', lobbyOppId2);
 
       document.getElementById('modeSeg').addEventListener('click', (e) => {
         const b = e.target.closest('[data-mode]');
